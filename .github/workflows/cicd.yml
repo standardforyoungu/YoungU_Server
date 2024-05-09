@@ -25,7 +25,7 @@ jobs:
         ssh ${{ secrets.SSH_USER }}@${{ secrets.HOST }} '
           cd YoungU_Server &&
           git pull &&
-          ./mvnw clean package &&     
+          ./gradlew clean package &&     
           sudo cp target/YoungU_Server-0.0.1-SNAPSHOT.jar /var/youngustandard/YoungU_Server-0.0.1-SNAPSHOT.jar
         '
     - name: Restart
