@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class ex {
     @GetMapping("/test")
     public String test(){
-        return "서버 연결 완료-cicd-develop2";
+        return "서버 연결 완료-cicd-develop3";
     }
 }
