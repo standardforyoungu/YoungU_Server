@@ -1,4 +1,4 @@
-package com.youngustandard.youngu_server.kindergarden;
+package com.youngustandard.youngu_server.Kindergarden;
 
 import org.springframework.stereotype.Service;
 
@@ -12,13 +12,18 @@ public class KindergardenServiceImpl implements KindergardenService{
     public KindergardenServiceImpl(KindergardenRepository kindergardenRepository){
         this.kindergardenRepository=kindergardenRepository;
     }
+
     @Override
     public List<KindergardenDTO> getKindergarden(String regn_cd, int offset) {
 
         HashMap<String,Object> param = new HashMap<>();
         param.put("regn_cd",regn_cd);
-        param.put("offest",offset);
-        //List<KindergardenDTO> kindergardenDTOList = kindergardenRepository.getKindergarden(param);
+        param.put("offset",offset);
         return kindergardenRepository.getKindergarden(param);
+    }
+
+    @Override
+    public int row_cnum_YS_REGN(String regn_cd) {
+        return kindergardenRepository.getRowNum_YS_REGN(Integer.parseInt(regn_cd));
     }
 }

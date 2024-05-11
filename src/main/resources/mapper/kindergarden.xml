@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!DOCTYPE mapper PUBLIC "-//iybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.youngustandard.youngu_server.mapper.KindergardenMapper">
-    <select id = "getKindergarden_list" parameterType="Map" resultType="com.youngustandard.youngu_server.kindergarden.KindergardenDTO">
+<mapper namespace="com.youngustandard.youngu_server.Mapper.KindergardenMapper">
+
+    <select id = "getKindergarden_list" parameterType="Map" resultType="com.youngustandard.youngu_server.Kindergarden.KindergardenDTO">
         SELECT ENGL_KD_CLAS_ID,ENGL_KD_CLAS_NM,ENGL_KD_CLAS_ADDR,ENGL_KD_CLAS_TELNO,ENGL_KD_CLAS_LNK
         FROM YS_ENGL_KD_CLAS
         WHERE REGN_CD = #{regn_cd}
-        LIMIT 10,10
+        <choose>
+            <when test='offset lt 10'> LIMIT 0,10 </when>
+            <otherwise> LIMIT #{offset},10 </otherwise>
+        </choose>
+    </select>
+
+    <select id = "count_row_num_YS_REGN" parameterType="int" resultType="int">
+        SELECT COUNT(*)
+        FROM YS_ENGL_KD_CLAS
+        WHERE REGN_CD = #{regn_cd}
     </select>
 </mapper>
