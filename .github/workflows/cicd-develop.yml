@@ -2,9 +2,9 @@ name: Java CI/CD
 
 on:
   push:
-    branches: [ "main", "develop" ]
+    branches: [ "develop"]
   pull_request:
-    branches: [ "main" , "develop" ]
+    branches: [ "develop"]
 
 jobs:
   build:
@@ -24,7 +24,8 @@ jobs:
       run: |
         ssh ${{ secrets.SSH_USER }}@${{ secrets.HOST }} '
           cd YoungU_Server &&
-          git pull &&
+          git checkout develop &&
+          git pull origin develop &&
           ./gradlew build &&     
           sudo cp build/libs/YoungU_Server-0.0.1-SNAPSHOT.jar /var/youngustandard/YoungU_Server-0.0.1-SNAPSHOT.jar
         '

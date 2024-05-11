@@ -1,0 +1,33 @@
+name: Java CI/CD
+
+on:
+  push:
+    branches: [ "main"]
+  pull_request:
+    branches: [ "main"]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Set up SSH
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.SPRING_BOOT_KEY }}" > ~/.ssh/id_rsa
+        chmod 400 ~/.ssh/id_rsa
+        ssh-keyscan ${{ secrets.HOST }} >> ~/.ssh/known_hosts
+        chmod 600 ~/.ssh/known_hosts
+        
+    - name: Build & Test
+      run: |
+        ssh ${{ secrets.SSH_USER }}@${{ secrets.HOST }} '
+          cd YoungU_Server &&
+          git pull &&
+          ./gradlew build &&     
+          sudo cp build/libs/YoungU_Server-0.0.1-SNAPSHOT.jar /var/youngustandard/YoungU_Server-0.0.1-SNAPSHOT.jar
+        '
+    - name: Restart
+      run: |
+        ssh ${{ secrets.SSH_USER }}@${{ secrets.HOST }} 'sudo systemctl restart youngustandard'
