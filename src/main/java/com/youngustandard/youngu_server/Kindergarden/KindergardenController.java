@@ -37,7 +37,7 @@ public class KindergardenController {
         //잘못된 페이지넘버가 들어온 경우
         //현재페이지가 0보다 작거나 마지막페이지 번호보다 큰 경우
         if(current_page_num<=0 || current_page_num > last_page_num){
-            throw new NotFoundException("다시 조회바랍니다..");
+            throw new NotFoundException("다시 조회바랍니다.");
         }
 
         int offset = (current_page_num-1) *10 ;
