@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//iybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.youngustandard.youngu_server.mapper.KindergardenMapper">
+    <select id = "getKindergarden_list" parameterType="Map" resultType="com.youngustandard.youngu_server.kindergarden.KindergardenDTO">
+        SELECT ENGL_KD_CLAS_ID,ENGL_KD_CLAS_NM,ENGL_KD_CLAS_ADDR,ENGL_KD_CLAS_TELNO,ENGL_KD_CLAS_LNK
+        FROM YS_ENGL_KD_CLAS
+        WHERE REGN_CD = #{regn_cd}
+        LIMIT 10,10
+    </select>
+</mapper>

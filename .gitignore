@@ -33,6 +33,6 @@ out/
 /nbdist/
 /.nb-gradle/
 application.yml
-
+test
 ### VS Code ###
 .vscode/
