@@ -1,0 +1,16 @@
+package com.youngustandard.youngu_server.response;
+
+import com.youngustandard.youngu_server.kindergarden.KindergardenDTO;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.List;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Kd_Clas_Response {
+    private String result;
+    private List<KindergardenDTO> engl_kd_clas_list;
+}
