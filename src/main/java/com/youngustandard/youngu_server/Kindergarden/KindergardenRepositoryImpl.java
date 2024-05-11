@@ -1,7 +1,6 @@
-package com.youngustandard.youngu_server.kindergarden;
+package com.youngustandard.youngu_server.Kindergarden;
 
-import com.youngustandard.youngu_server.mapper.KindergardenMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.youngustandard.youngu_server.Mapper.KindergardenMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
@@ -18,5 +17,10 @@ public class KindergardenRepositoryImpl implements KindergardenRepository{
     @Override
     public List<KindergardenDTO> getKindergarden(HashMap<String, Object> param) {
         return kindergardenMapper.getKindergarden_list(param);
+    }
+
+    @Override
+    public int getRowNum_YS_REGN(int regn_cd) {
+        return kindergardenMapper.count_row_num_YS_REGN(regn_cd);
     }
 }

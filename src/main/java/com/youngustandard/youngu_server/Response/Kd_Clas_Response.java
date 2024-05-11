@@ -1,6 +1,6 @@
-package com.youngustandard.youngu_server.response;
+package com.youngustandard.youngu_server.Response;
 
-import com.youngustandard.youngu_server.kindergarden.KindergardenDTO;
+import com.youngustandard.youngu_server.Kindergarden.KindergardenDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,5 +12,6 @@ import java.util.List;
 @AllArgsConstructor
 public class Kd_Clas_Response {
     private String result;
+    private int last_page_num;
     private List<KindergardenDTO> engl_kd_clas_list;
 }

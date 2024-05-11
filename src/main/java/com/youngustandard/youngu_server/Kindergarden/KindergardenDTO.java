@@ -1,4 +1,4 @@
-package com.youngustandard.youngu_server.kindergarden;
+package com.youngustandard.youngu_server.Kindergarden;
 
 import lombok.*;
 
