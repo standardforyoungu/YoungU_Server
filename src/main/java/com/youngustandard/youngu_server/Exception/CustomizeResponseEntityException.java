@@ -18,7 +18,7 @@ import java.text.ParseException;
 @ControllerAdvice
 public class CustomizeResponseEntityException {
     HttpHeaders httpHeaders = new HttpHeaders();
-    @ExceptionHandler(RuntimeException.class)
+    @ExceptionHandler({RuntimeException.class,DuplicateKeyException.class})
     public final ResponseEntity<Object> NotFoundException(Exception ex){
         ExceptionResponse exceptionResponse = new ExceptionResponse("Fail",ex.getMessage());
         httpHeaders.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
