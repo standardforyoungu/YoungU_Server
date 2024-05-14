@@ -10,9 +10,5 @@ import lombok.NoArgsConstructor;
 public class LoginResponse {
     private String result;
     private String exist_yn;
-    private String refresh_token;
-    private String mbr_id;
-    private String mbr_nck_nm;
-    private String prf_img;
-    private String thumb_img;
+    private String access_token;
 }
