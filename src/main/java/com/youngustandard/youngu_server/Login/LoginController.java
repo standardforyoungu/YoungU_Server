@@ -3,10 +3,7 @@ package com.youngustandard.youngu_server.Login;
 import com.youngustandard.youngu_server.Response.LoginResponse;
 import jakarta.servlet.http.Cookie;
 import org.springframework.http.*;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.nio.charset.Charset;
@@ -33,8 +30,8 @@ public class LoginController {
         return new ResponseEntity<>(headers, HttpStatus.MOVED_PERMANENTLY);
     }
 
-    @GetMapping("/youngustandard/login/oauth2/callback")
-    public ResponseEntity<Object> loginCallback(@RequestParam String code) throws Exception {
+    @PostMapping("/youngustandard/login/oauth2/callback")
+    public ResponseEntity<Object> loginCallback(@RequestBody String code) throws Exception {
         LoginResponse loginResponse = new LoginResponse();
         //accessToken 이랑 refreshToken 발급
         LoginDTO loginDTO = loginService.getToken(code);
