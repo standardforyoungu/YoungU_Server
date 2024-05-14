@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//iybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.youngustandard.youngu_server.Mapper.LoginMapper">
+
+    <select id = "get_User_num" parameterType="String" resultType="int">
+        SELECT COUNT(*)
+        FROM YS_MEMBER
+        WHERE MBR_ID = #{id}
+    </select>
+
+    <insert id = "add_User" parameterType="com.youngustandard.youngu_server.Login.LoginDTO">
+        INSERT INTO YS_MEMBER(MBR_ID,MBR_NCK_NM,PRF_IMG,THUMB_IMG,FST_INPR,LAST_UPDR)
+        VALUES(#{mbr_id},#{mbr_nck_nm},#{prf_img},#{thumb_img},#{mbr_id},#{mbr_id})
+    </insert>
+
+    <insert id = "add_User_Secret" parameterType="com.youngustandard.youngu_server.Login.LoginDTO">
+        INSERT INTO YS_MEMBER_SECRET(MBR_ID,MBR_TOKEN,FST_INPR,LAST_UPDR)
+        VALUES(#{mbr_id},#{refresh_token},#{mbr_id},#{mbr_id})
+    </insert>
+</mapper>
