@@ -33,7 +33,7 @@ public class LoginController {
         return new ResponseEntity<>(headers, HttpStatus.MOVED_PERMANENTLY);
     }
 
-    @GetMapping("/youngustandard/login/oauth2/callback") //POST 방식으로 바꿔야함.
+    @GetMapping("/youngustandard/login/oauth2/callback")
     public ResponseEntity<Object> loginCallback(@RequestParam String code) throws Exception {
         LoginResponse loginResponse = new LoginResponse();
         //accessToken 이랑 refreshToken 발급
