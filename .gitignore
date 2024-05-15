@@ -34,5 +34,6 @@ out/
 /.nb-gradle/
 application.yml
 test
+logback.xml
 ### VS Code ###
 .vscode/
