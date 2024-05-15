@@ -36,5 +36,6 @@ application.yml
 logback.xml
 test
 YoungUServerApplicationTests.java
+
 ### VS Code ###
 .vscode/

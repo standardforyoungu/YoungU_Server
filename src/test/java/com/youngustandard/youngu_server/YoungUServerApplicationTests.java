@@ -7,7 +7,7 @@
 //class YoungUServerApplicationTests {
 //
 //    @Test
-//    void contextLoads() {contextLoads
-//    }contextLoads
+//    void contextLoads() {
+//    }
 //
 //}
