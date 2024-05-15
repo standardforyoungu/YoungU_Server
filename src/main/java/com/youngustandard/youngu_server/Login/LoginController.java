@@ -31,10 +31,11 @@ public class LoginController {
     }
 
     @PostMapping("/youngustandard/login/oauth2/callback")
-    public ResponseEntity<Object> loginCallback(@RequestBody String code) throws Exception {
+    @ResponseBody
+    public ResponseEntity<Object> loginCallback(@RequestBody LoginDTO aloginDTO) throws Exception {
         LoginResponse loginResponse = new LoginResponse();
         //accessToken 이랑 refreshToken 발급
-        LoginDTO loginDTO = loginService.getToken(code);
+        LoginDTO loginDTO = loginService.getToken(aloginDTO.getCode());
 
         //accessToken으로 사용자 정보 받으러 가기
         loginDTO = loginService.getUserInfo(loginDTO);
@@ -67,6 +68,5 @@ public class LoginController {
                 .sameSite("Strict")
                 .build();
         return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString()).body(loginResponse);
-        //return new ResponseEntity<>(loginResponse,httpHeaders, HttpStatus.OK);
     }
 }
