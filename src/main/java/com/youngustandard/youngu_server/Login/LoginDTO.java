@@ -10,6 +10,7 @@ import lombok.ToString;
 @ToString
 @RequiredArgsConstructor
 public class LoginDTO {
+    private String code;
     private String access_token;
     private String refresh_token;
     private String mbr_id;
