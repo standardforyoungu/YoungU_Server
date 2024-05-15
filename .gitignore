@@ -33,6 +33,7 @@ out/
 /nbdist/
 /.nb-gradle/
 application.yml
+logback.xml
 test
 ### VS Code ###
 .vscode/
