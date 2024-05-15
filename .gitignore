@@ -33,7 +33,9 @@ out/
 /nbdist/
 /.nb-gradle/
 application.yml
-test
 logback.xml
+test
+YoungUServerApplicationTests.java
+
 ### VS Code ###
 .vscode/
