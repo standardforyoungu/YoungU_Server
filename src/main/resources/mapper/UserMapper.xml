@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//iybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.youngustandard.youngu_server.Mapper.UserMapper">
+
+    <select id = "find_children" parameterType="String" resultType="com.youngustandard.youngu_server.User.ChildDTO">
+        SELECT CHL_ID,CHL_NCK_NM,CHL_SEX,CHL_AGE,CHL_MBTI
+        FROM YS_CHILD
+        WHERE MBR_ID = #{mbr_id}
+    </select>
+
+    <select id = "get_UserInfo" parameterType="String" resultType="com.youngustandard.youngu_server.User.MemberDTO">
+        SELECT MBR_ID,MBR_NCK_NM,PRF_IMG,THUMB_IMG
+        FROM YS_MEMBER
+        WHERE MBR_ID = #{mbr_id}
+    </select>
+
+    <select id = "find_Max_Child_Id" parameterType="String" resultType="Int">
+        SELECT MAX(CHL_ID)
+        FROM YS_CHILD
+        WHERE MBR_ID = #{mbr_id}
+    </select>
+
+    <insert id="insert_ChildInfo" parameterType="com.youngustandard.youngu_server.User.ChildDTO">
+        INSERT INTO YS_CHILD(MBR_ID,CHL_ID,CHL_NCK_NM,CHL_SEX,CHL_AGE,FST_INPR,LAST_UPDR)
+        VALUES(#{mbr_id},#{chl_id},#{chl_nck_nm},#{chl_sex},#{chl_age},#{mbr_id},#{mbr_id})
+    </insert>
+</mapper>
