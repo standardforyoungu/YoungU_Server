@@ -1,8 +1,8 @@
-package com.youngustandard.youngu_server.Child;
+package com.youngustandard.youngu_server.User;
 
 import java.util.List;
 
-public interface ChildService {
+public interface UserService {
     //조회
     List<ChildDTO> find_Children(String mbr_id);
     //저장
@@ -12,4 +12,9 @@ public interface ChildService {
     //삭제
     int delete_Child_Info();
 
+    MemberDTO get_UserInfo(String mbrId);
+
+    int find_Max_Child_Id(String mbrId);
+
+    int insert_ChiildInfo(ChildDTO childDTO);
 }

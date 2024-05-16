@@ -1,18 +1,24 @@
 package com.youngustandard.youngu_server.Login;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.interfaces.DecodedJWT;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.json.BasicJsonParser;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class KakaoLoginServiceImpl implements LoginService{
@@ -25,6 +31,8 @@ public class KakaoLoginServiceImpl implements LoginService{
     private String KAKAO_LOCATION;
     @Value("${kakao.requestURL}")
     private String KAKAO_GET_ACCESS_TOKEN_URL;
+    @Value("${jwt.secretKey}")
+    private String jwt_secret_key;
     @Override
     public String getRedirectURL() {
         return KAKAO_LOCATION+"&client_id="+KAKAO_CLIENT_ID+"&redirect_uri="+KAKAO_REDIRECT_URL;
@@ -66,10 +74,11 @@ public class KakaoLoginServiceImpl implements LoginService{
         ObjectMapper objectMapper = new ObjectMapper();
         Map<String,Object> jsonMap = objectMapper.readValue(result, new TypeReference<Map<String, Object>>() {
         });
-
+        System.out.println("jsonMap = " + jsonMap);
         LoginDTO loginDTO = new LoginDTO();
         loginDTO.setAccess_token(jsonMap.get("access_token").toString());
         loginDTO.setRefresh_token(jsonMap.get("refresh_token").toString());
+
 
         bufferedReader.close();;
         bufferedWriter.close();
@@ -136,6 +145,45 @@ public class KakaoLoginServiceImpl implements LoginService{
         //회원가입 진행
         loginRepository.add_User(loginDTO);
         loginRepository.add_User_Secret(loginDTO);
+    }
+
+    @Override
+    public String create_JWT(String token,String flag, String id) {
+        if(flag.equals("AT")){
+            return Jwts.builder()
+                    .setHeaderParam("type","youngu-jwt")
+                    .claim("id",id)
+                    .claim("toekn",token)
+                    .setIssuedAt(new Date(System.currentTimeMillis()))
+                    .setExpiration(new Date(System.currentTimeMillis()+59*60*6*1000))
+                    .signWith(SignatureAlgorithm.HS256,jwt_secret_key)
+                    .compact();
+        }
+        else{
+            return Jwts.builder()
+                    .setHeaderParam("type","youngu-jwt-rt")
+                    .claim("id",id)
+                    .claim("toekn",token)
+                    .setIssuedAt(new Date(System.currentTimeMillis()))
+                    .setExpiration(new Date(System.currentTimeMillis()+59*60*24*60*1000))
+                    .signWith(SignatureAlgorithm.HS256,jwt_secret_key)
+                    .compact();
+        }
+    }
+
+    @Override
+    public HashMap<String, Object> decode_JWT(String token) {
+        Base64.Decoder decoder = Base64.getUrlDecoder();
+        HashMap<String,Object> d_map=new HashMap<>();
+        String payload = token.split("\\.")[1];
+        
+        String decoded_payload = new String(decoder.decode(payload));
+        JsonParser jsonParser = new JsonParser();
+        Object obj = jsonParser.parse(decoded_payload);
+        JsonObject jsonObject = (JsonObject) obj;
+        d_map.put("id",jsonObject.get("id"));
+        d_map.put("exp", jsonObject.get("exp"));
+        return d_map;
     }
 
 }

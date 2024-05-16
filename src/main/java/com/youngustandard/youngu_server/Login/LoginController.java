@@ -30,13 +30,14 @@ public class LoginController {
         return new ResponseEntity<>(headers, HttpStatus.MOVED_PERMANENTLY);
     }
 
-    @PostMapping("/youngustandard/login/oauth2/callback")
-    @ResponseBody
-    public ResponseEntity<Object> loginCallback(@RequestBody LoginDTO aloginDTO) throws Exception {
+    @GetMapping("/youngustandard/login/oauth2/callback")
+    //@ResponseBody
+    //@RequestBody LoginDTO aloginDTO
+    public ResponseEntity<Object> loginCallback(@RequestParam String code) throws Exception {
         LoginResponse loginResponse = new LoginResponse();
         //accessToken 이랑 refreshToken 발급
-        LoginDTO loginDTO = loginService.getToken(aloginDTO.getCode());
-
+        //LoginDTO loginDTO = loginService.getToken(aloginDTO.getCode());
+        LoginDTO loginDTO = loginService.getToken(code);
         //accessToken으로 사용자 정보 받으러 가기
         loginDTO = loginService.getUserInfo(loginDTO);
 
@@ -54,13 +55,18 @@ public class LoginController {
             loginResponse.setExist_yn("yes");
         }
         loginResponse.setResult("Success");
-        loginResponse.setAccess_token(loginDTO.getAccess_token());
+        //access token, refresh token을 jwt로 만들기
+        System.out.println("loginDTO = " + loginDTO.getAccess_token());
+        String jwt_access_toekn = loginService.create_JWT(loginDTO.getAccess_token(),"AT", loginDTO.getMbr_id());
+        System.out.println("jwt_access_toekn = " + jwt_access_toekn);
+        String jwt_refresh_toekn = loginService.create_JWT(loginDTO.getRefresh_token(),"RT", loginDTO.getMbr_id());
+        loginResponse.setAccess_token(jwt_access_toekn);
 
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
 
         //access_token 쿠키에 담아보내기
-        ResponseCookie cookie = ResponseCookie.from("refresh_token",loginDTO.getRefresh_token())
+        ResponseCookie cookie = ResponseCookie.from("refresh_token",jwt_refresh_toekn)
                 .domain("localhost")
                 .httpOnly(true)
                 .secure(false)

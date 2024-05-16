@@ -12,7 +12,9 @@ import lombok.ToString;
 public class LoginDTO {
     private String code;
     private String access_token;
+    private String access_token_expire;
     private String refresh_token;
+    private String refresh_token_expire;
     private String mbr_id;
     private String mbr_nck_nm;
     private String prf_img;
