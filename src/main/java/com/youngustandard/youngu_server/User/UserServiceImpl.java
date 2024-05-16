@@ -26,8 +26,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int delete_Child_Info() {
-        return 0;
+    public int delete_Child_Info(ChildDTO childDTO) {
+        return userRepository.delete_ChildInfo(childDTO);
     }
 
     @Override

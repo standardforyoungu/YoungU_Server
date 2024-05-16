@@ -13,7 +13,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.reflect.Member;
 import java.nio.charset.Charset;
 
 @RestController
@@ -28,7 +27,7 @@ public class UserController {
     @GetMapping("/youngustandard/user/{mbr_id}")
     // 유저 정보 조회
     //@AuthorizeCheck
-    public ResponseEntity<MemberDTO> search_User(@PathVariable String mbr_id){
+    public ResponseEntity<MemberDTO> search_UserInfo(@PathVariable String mbr_id){
 
         MemberDTO memberDTO = userService.get_UserInfo(mbr_id);
         if(memberDTO == null){
@@ -43,7 +42,7 @@ public class UserController {
     @GetMapping("/youngustandard/user/{mbr_id}/child")
     //특정 유저의 아이 전체 조회
     //@AuthorizeCheck
-    public ResponseEntity<ChildResponse> search_AllChild(@PathVariable String mbr_id){
+    public ResponseEntity<ChildResponse> search_AllChildInfo(@PathVariable String mbr_id){
 
         MemberDTO memberDTO = userService.get_UserInfo(mbr_id);
         if(memberDTO == null){
@@ -61,7 +60,7 @@ public class UserController {
     }
 
     @PostMapping("/youngustandard/user/{mbr_id}/child")
-    public ResponseEntity<DefaultResponse> insert_Child(@Valid @RequestBody ChildDTO childDTO, @PathVariable String mbr_id){
+    public ResponseEntity<DefaultResponse> insert_ChildInfo(@Valid @RequestBody ChildDTO childDTO, @PathVariable String mbr_id){
        if(!(childDTO.getChl_sex().equals("F") || childDTO.getChl_sex().equals("M"))){
            throw new ViolateRuleException("아이는 여아 혹은 남아입니다.");
        }
@@ -85,4 +84,22 @@ public class UserController {
         defaultResponse.setResult("Success");
         return new ResponseEntity<>(defaultResponse,httpHeaders, HttpStatus.OK);
     }
+
+    @DeleteMapping("/youngustandard/user/{mbr_id}/child")
+    public ResponseEntity<DefaultResponse> delete_ChildInfo(@RequestBody ChildDTO childDTO, @PathVariable String mbr_id){
+        MemberDTO memberDTO = userService.get_UserInfo(mbr_id);
+        if(memberDTO == null){
+            throw new NotFoundException("해당 유저의 정보를 찾을 수 없습니다.");
+        }
+        childDTO.setMbr_id(mbr_id);
+        int process_result = userService.delete_Child_Info(childDTO);
+        if(process_result<1){
+            throw new NotFoundException("해당 아이의 정보를 찾을 수 없습니다. 다시 시도해 주세요.");
+        }
+        httpHeaders.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
+        DefaultResponse defaultResponse = new DefaultResponse();
+        defaultResponse.setResult("Success");
+        return new ResponseEntity<>(defaultResponse,httpHeaders, HttpStatus.OK);
+    }
+
 }

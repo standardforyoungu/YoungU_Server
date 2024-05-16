@@ -25,4 +25,8 @@
         INSERT INTO YS_CHILD(MBR_ID,CHL_ID,CHL_NCK_NM,CHL_SEX,CHL_AGE,FST_INPR,LAST_UPDR)
         VALUES(#{mbr_id},#{chl_id},#{chl_nck_nm},#{chl_sex},#{chl_age},#{mbr_id},#{mbr_id})
     </insert>
+
+    <delete id="delete_ChildInfo" parameterType="com.youngustandard.youngu_server.User.ChildDTO">
+        DELETE FROM YS_CHILD WHERE MBR_ID = #{mbr_id} AND CHL_ID = #{chl_id}
+    </delete>
 </mapper>

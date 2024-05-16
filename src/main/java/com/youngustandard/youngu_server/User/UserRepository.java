@@ -10,4 +10,6 @@ public interface UserRepository {
     int find_Max_Child_Id(String mbrId);
 
     int insert_ChildInfo(ChildDTO childDTO);
+
+    int delete_ChildInfo(ChildDTO childDTO);
 }
