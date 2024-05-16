@@ -30,4 +30,9 @@ public class UserRepositoryImpl implements UserRepository {
     public int insert_ChildInfo(ChildDTO childDTO) {
         return userMapper.insert_ChildInfo(childDTO);
     }
+
+    @Override
+    public int delete_ChildInfo(ChildDTO childDTO) {
+        return userMapper.delete_ChildInfo(childDTO);
+    }
 }

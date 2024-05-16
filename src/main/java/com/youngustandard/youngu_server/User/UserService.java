@@ -10,7 +10,7 @@ public interface UserService {
     //수정
     int update_Child_Info();
     //삭제
-    int delete_Child_Info();
+    int delete_Child_Info(ChildDTO childDTO);
 
     MemberDTO get_UserInfo(String mbrId);
 
