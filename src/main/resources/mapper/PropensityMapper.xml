@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//iybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.youngustandard.youngu_server.Mapper.PropensityMapper">
+
+    <select id = "get_Question_List" resultType="com.youngustandard.youngu_server.Propensity.PropensityDTO">
+        SELECT TEST_QSTN_ID, TEST_QSTN_CNTNT, CHC1_PRPNS, CHC1_CNTNT, CHC2_PRPNS, CHC2_CNTNT
+        FROM YS_TEST_QSTN;
+    </select>
+
+</mapper>
