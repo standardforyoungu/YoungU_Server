@@ -15,7 +15,7 @@
         WHERE MBR_ID = #{mbr_id}
     </select>
 
-    <select id = "find_Max_Child_Id" parameterType="String" resultType="Int">
+    <select id = "find_Max_Child_Id" parameterType="String" resultType="com.youngustandard.youngu_server.User.ChildDTO">
         SELECT MAX(CHL_ID)
         FROM YS_CHILD
         WHERE MBR_ID = #{mbr_id}
@@ -29,4 +29,10 @@
     <delete id="delete_ChildInfo" parameterType="com.youngustandard.youngu_server.User.ChildDTO">
         DELETE FROM YS_CHILD WHERE MBR_ID = #{mbr_id} AND CHL_ID = #{chl_id}
     </delete>
+
+    <update id="update_ChildInfo" parameterType="com.youngustandard.youngu_server.User.ChildDTO">
+        UPDATE YS_CHILD
+        SET CHL_NCK_NM = #{chl_nck_nm} , CHL_SEX = #{chl_sex}, CHL_AGE = #{chl_age}, LAST_UPDR = #{mbr_id}, LAST_UPD_DTM = NOW()
+        WHERE MBR_ID = #{mbr_id} AND CHL_ID = #{chl_id}
+    </update>
 </mapper>

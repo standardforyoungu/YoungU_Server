@@ -61,19 +61,27 @@ public class UserController {
 
     @PostMapping("/youngustandard/user/{mbr_id}/child")
     public ResponseEntity<DefaultResponse> insert_ChildInfo(@Valid @RequestBody ChildDTO childDTO, @PathVariable String mbr_id){
-       if(!(childDTO.getChl_sex().equals("F") || childDTO.getChl_sex().equals("M"))){
+       int next_child_id;
+        if(!(childDTO.getChl_sex().equals("F") || childDTO.getChl_sex().equals("M"))){
            throw new ViolateRuleException("아이는 여아 혹은 남아입니다.");
        }
         MemberDTO memberDTO = userService.get_UserInfo(mbr_id);
         if(memberDTO == null){
             throw new NotFoundException("해당 유저의 정보를 찾을 수 없습니다.");
         }
-        int next_child_id = userService.find_Max_Child_Id(mbr_id)+1;
+        childDTO.setMbr_id(mbr_id);
+        if(userService.find_Max_Child_Id(childDTO)==null){
+            next_child_id=1;
+        }
+        else{
+            next_child_id = userService.find_Max_Child_Id(childDTO).getChl_id()+1;
+        }
+
         if(next_child_id>3){
             throw new ViolateRuleException("아이 정보는 최대 3개까지 저장가능합니다. 아이 정보를 삭제한 후 다시 시도해주시기 바랍니다.");
         }
         childDTO.setChl_id(next_child_id);
-        childDTO.setMbr_id(mbr_id);
+
         int procced_insert = userService.insert_ChiildInfo(childDTO);
         if(procced_insert<1){
             throw new ViolateRuleException("잠시 후 다시 시도해 주시기 바랍니다.");
@@ -82,6 +90,7 @@ public class UserController {
         httpHeaders.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
         DefaultResponse defaultResponse = new DefaultResponse();
         defaultResponse.setResult("Success");
+        defaultResponse.setMessage("아이 정보를 성공적으로 저장하였습니다.");
         return new ResponseEntity<>(defaultResponse,httpHeaders, HttpStatus.OK);
     }
 
@@ -99,7 +108,24 @@ public class UserController {
         httpHeaders.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
         DefaultResponse defaultResponse = new DefaultResponse();
         defaultResponse.setResult("Success");
+        defaultResponse.setMessage("아이 정보를 성공적으로 삭제하였습니다.");
         return new ResponseEntity<>(defaultResponse,httpHeaders, HttpStatus.OK);
     }
-
+    @PatchMapping("/youngustandard/user/{mbr_id}/child")
+    public ResponseEntity<DefaultResponse> update_ChildInfo(@RequestBody ChildDTO childDTO, @PathVariable String mbr_id){
+        MemberDTO memberDTO = userService.get_UserInfo(mbr_id);
+        if(memberDTO == null){
+            throw new NotFoundException("해당 유저의 정보를 찾을 수 없습니다.");
+        }
+        childDTO.setMbr_id(mbr_id);
+        int proceed_result = userService.update_Child_Info(childDTO);
+        if(proceed_result<1){
+            throw new NotFoundException("아이의 정보를 찾을 수 없습니다. 다시 시도해 주시기 바랍니다.");
+        }
+        httpHeaders.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
+        DefaultResponse defaultResponse = new DefaultResponse();
+        defaultResponse.setResult("Success");
+        defaultResponse.setMessage("아이 정보를 성공적으로 수정하였습니다.");
+        return new ResponseEntity<>(defaultResponse,httpHeaders, HttpStatus.OK);
+    }
 }
