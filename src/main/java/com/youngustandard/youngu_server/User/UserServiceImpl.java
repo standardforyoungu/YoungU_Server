@@ -21,8 +21,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int update_Child_Info() {
-        return 0;
+    public int update_Child_Info(ChildDTO childDTO) {
+        return userRepository.update_ChildInfo(childDTO);
     }
 
     @Override
@@ -36,8 +36,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int find_Max_Child_Id(String mbrId) {
-        return userRepository.find_Max_Child_Id(mbrId);
+    public ChildDTO find_Max_Child_Id(ChildDTO childDTO) {
+        return userRepository.find_Max_Child_Id(childDTO);
     }
 
     @Override

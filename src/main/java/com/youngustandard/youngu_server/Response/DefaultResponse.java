@@ -9,4 +9,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class DefaultResponse {
     private String result;
+    private String message;
 }

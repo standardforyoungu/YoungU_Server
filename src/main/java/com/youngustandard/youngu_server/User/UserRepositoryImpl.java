@@ -22,8 +22,8 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public int find_Max_Child_Id(String mbrId) {
-        return userMapper.find_Max_Child_Id(mbrId);
+    public ChildDTO find_Max_Child_Id(ChildDTO childDTO) {
+        return userMapper.find_Max_Child_Id(childDTO);
     }
 
     @Override
@@ -34,5 +34,10 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public int delete_ChildInfo(ChildDTO childDTO) {
         return userMapper.delete_ChildInfo(childDTO);
+    }
+
+    @Override
+    public int update_ChildInfo(ChildDTO childDTO) {
+        return userMapper.update_ChildInfo(childDTO);
     }
 }

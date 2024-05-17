@@ -12,9 +12,11 @@ public interface UserMapper {
 
     MemberDTO get_UserInfo(String mbrId);
 
-    int find_Max_Child_Id(String mbrId);
+    ChildDTO find_Max_Child_Id(ChildDTO childDTO);
 
     int insert_ChildInfo(ChildDTO childDTO);
 
     int delete_ChildInfo(ChildDTO childDTO);
+
+    int update_ChildInfo(ChildDTO childDTO);
 }
