@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.youngustandard.youngu_server.Exception.NotFoundException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
@@ -62,7 +63,9 @@ public class KakaoLoginServiceImpl implements LoginService{
 
         int response_code=conn.getResponseCode();
         //TODO response_code가 200이 아니라면 예외처리해야함
-
+        if(response_code != 200){
+            throw new NotFoundException("잠시 후 다시 시도해주시기 바랍니다.");
+        }
         //요청을 통해 얻은 JSON 타입의 Response 메세지 읽어오기
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
         String line ="";

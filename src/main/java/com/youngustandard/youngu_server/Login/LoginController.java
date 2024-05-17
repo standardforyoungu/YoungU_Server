@@ -30,14 +30,16 @@ public class LoginController {
         return new ResponseEntity<>(headers, HttpStatus.MOVED_PERMANENTLY);
     }
 
-    @GetMapping("/youngustandard/login/oauth2/callback")
+    //@GetMapping("/youngustandard/login/oauth2/callback")
     //@ResponseBody
     //@RequestBody LoginDTO aloginDTO
-    public ResponseEntity<Object> loginCallback(@RequestParam String code) throws Exception {
+    @PostMapping("/youngustandard/login/oauth2/callback")
+    public ResponseEntity<Object> loginCallback( @RequestBody LoginDTO aloginDTO) throws Exception {
         LoginResponse loginResponse = new LoginResponse();
         //accessToken 이랑 refreshToken 발급
-        //LoginDTO loginDTO = loginService.getToken(aloginDTO.getCode());
-        LoginDTO loginDTO = loginService.getToken(code);
+
+        LoginDTO loginDTO = loginService.getToken(aloginDTO.getCode());
+        //LoginDTO loginDTO = loginService.getToken(code);
         //accessToken으로 사용자 정보 받으러 가기
         loginDTO = loginService.getUserInfo(loginDTO);
 
@@ -56,9 +58,9 @@ public class LoginController {
         }
         loginResponse.setResult("Success");
         //access token, refresh token을 jwt로 만들기
-        System.out.println("loginDTO = " + loginDTO.getAccess_token());
+
         String jwt_access_toekn = loginService.create_JWT(loginDTO.getAccess_token(),"AT", loginDTO.getMbr_id());
-        System.out.println("jwt_access_toekn = " + jwt_access_toekn);
+
         String jwt_refresh_toekn = loginService.create_JWT(loginDTO.getRefresh_token(),"RT", loginDTO.getMbr_id());
         loginResponse.setAccess_token(jwt_access_toekn);
 
