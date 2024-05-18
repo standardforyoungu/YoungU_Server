@@ -13,5 +13,6 @@ import java.util.List;
 public class Kd_Clas_Response {
     private String result;
     private int last_page_num;
+    private int current_page;
     private List<KindergardenDTO> engl_kd_clas_list;
 }

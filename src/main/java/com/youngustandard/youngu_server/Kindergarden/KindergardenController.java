@@ -45,6 +45,7 @@ public class KindergardenController {
         Kd_Clas_Response kdClasResponse = new Kd_Clas_Response();
         kdClasResponse.setResult("Success");
         kdClasResponse.setLast_page_num(last_page_num);
+        kdClasResponse.setCurrent_page(Integer.parseInt(page_num));
         kdClasResponse.setEngl_kd_clas_list(kindergardenService.getKindergarden(regn_cd,offset));
 
         return new ResponseEntity<>(kdClasResponse,httpHeaders, HttpStatus.OK);
