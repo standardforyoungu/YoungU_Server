@@ -8,7 +8,7 @@
         FROM YS_TEST_QSTN;
     </select>
     <select id = "find_next_test_rslt_no" resultType="com.youngustandard.youngu_server.Propensity.ResultDTO">
-        SELECT TEST_RSLT_NO
+        SELECT MAX(TEST_RSLT_NO) AS TEST_RSLT_NO
         FROM YS_TEST_RESULT
         WHERE MBR_ID = #{mbr_id} AND CHL_ID =#{chl_id}
     </select>
