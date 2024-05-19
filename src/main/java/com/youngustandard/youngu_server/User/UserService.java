@@ -1,5 +1,7 @@
 package com.youngustandard.youngu_server.User;
 
+import com.youngustandard.youngu_server.Propensity.ResultDTO;
+
 import java.util.List;
 
 public interface UserService {
@@ -17,4 +19,6 @@ public interface UserService {
     ChildDTO find_Max_Child_Id(ChildDTO childDTO);
 
     int insert_ChiildInfo(ChildDTO childDTO);
+
+    int find_specific_child(ResultDTO resultDTO);
 }

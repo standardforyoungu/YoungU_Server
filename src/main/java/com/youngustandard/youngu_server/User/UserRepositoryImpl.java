@@ -1,6 +1,7 @@
 package com.youngustandard.youngu_server.User;
 
 import com.youngustandard.youngu_server.Mapper.UserMapper;
+import com.youngustandard.youngu_server.Propensity.ResultDTO;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -39,5 +40,15 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public int update_ChildInfo(ChildDTO childDTO) {
         return userMapper.update_ChildInfo(childDTO);
+    }
+
+    @Override
+    public int find_specific_child(ResultDTO resultDTO) {
+        return userMapper.find_specific_child(resultDTO);
+    }
+
+    @Override
+    public int update_Child_Result(ResultDTO resultDTO) {
+        return userMapper.update_Child_Result(resultDTO);
     }
 }

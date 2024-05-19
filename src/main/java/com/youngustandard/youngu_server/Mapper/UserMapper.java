@@ -1,5 +1,6 @@
 package com.youngustandard.youngu_server.Mapper;
 
+import com.youngustandard.youngu_server.Propensity.ResultDTO;
 import com.youngustandard.youngu_server.User.ChildDTO;
 import com.youngustandard.youngu_server.User.MemberDTO;
 import org.apache.ibatis.annotations.Mapper;
@@ -19,4 +20,8 @@ public interface UserMapper {
     int delete_ChildInfo(ChildDTO childDTO);
 
     int update_ChildInfo(ChildDTO childDTO);
+
+    int find_specific_child(ResultDTO resultDTO);
+
+    int update_Child_Result(ResultDTO resultDTO);
 }
