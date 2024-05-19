@@ -24,8 +24,6 @@ public class LoginController {
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(URI.create(URL));
         headers.setContentType(MediaType.APPLICATION_JSON);
-        //TODO 해결해야할 문제..
-        //TODO client_id와 redirect_uri 부분 암호화 필요?
         System.out.println("URL = " + URL);
         return new ResponseEntity<>(headers, HttpStatus.MOVED_PERMANENTLY);
     }
