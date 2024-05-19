@@ -7,5 +7,13 @@
         SELECT TEST_QSTN_ID, TEST_QSTN_CNTNT, CHC1_PRPNS, CHC1_CNTNT, CHC2_PRPNS, CHC2_CNTNT
         FROM YS_TEST_QSTN;
     </select>
-
+    <select id = "find_next_test_rslt_no" resultType="com.youngustandard.youngu_server.Propensity.ResultDTO">
+        SELECT TEST_RSLT_NO
+        FROM YS_TEST_RESULT
+        WHERE MBR_ID = #{mbr_id} AND CHL_ID =#{chl_id}
+    </select>
+    <insert id = "save_Result" parameterType="com.youngustandard.youngu_server.Propensity.ResultDTO">
+        INSERT INTO YS_TEST_RESULT(MBR_ID,CHL_ID,TEST_RSLT_NO,TEST_RSLT,FST_INPR,LAST_UPDR)
+        VALUES(#{mbr_id},#{chl_id},#{test_rslt_no},#{test_rslt},#{mbr_id},#{mbr_id})
+    </insert>
 </mapper>

@@ -35,4 +35,15 @@
         SET CHL_NCK_NM = #{chl_nck_nm} , CHL_SEX = #{chl_sex}, CHL_AGE = #{chl_age}, LAST_UPDR = #{mbr_id}, LAST_UPD_DTM = NOW()
         WHERE MBR_ID = #{mbr_id} AND CHL_ID = #{chl_id}
     </update>
+
+    <select id = "find_specific_child" parameterType="com.youngustandard.youngu_server.Propensity.ResultDTO" resultType="int">
+        SELECT COUNT(*)
+        FROM YS_CHILD
+        WHERE MBR_ID = #{mbr_id} AND CHL_ID = #{chl_id}
+    </select>
+    <update id="update_Child_Result" parameterType="com.youngustandard.youngu_server.Propensity.ResultDTO">
+        UPDATE YS_CHILD SET CHL_MBTI = #{test_rslt}, LAST_UPDR = #{mbr_id}, LAST_UPD_DTM = NOW()
+        WHERE MBR_ID = #{mbr_id} AND CHL_ID = #{chl_id}
+    </update>
+
 </mapper>

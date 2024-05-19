@@ -1,5 +1,6 @@
 package com.youngustandard.youngu_server.User;
 
+import com.youngustandard.youngu_server.Propensity.ResultDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -43,5 +44,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public int insert_ChiildInfo(ChildDTO childDTO) {
         return userRepository.insert_ChildInfo(childDTO);
+    }
+
+    @Override
+    public int find_specific_child(ResultDTO resultDTO) {
+        return userRepository.find_specific_child(resultDTO);
     }
 }

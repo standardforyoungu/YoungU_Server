@@ -1,5 +1,7 @@
 package com.youngustandard.youngu_server.User;
 
+import com.youngustandard.youngu_server.Propensity.ResultDTO;
+
 import java.util.List;
 
 public interface UserRepository {
@@ -14,4 +16,8 @@ public interface UserRepository {
     int delete_ChildInfo(ChildDTO childDTO);
 
     int update_ChildInfo(ChildDTO childDTO);
+
+    int find_specific_child(ResultDTO resultDTO);
+
+    int update_Child_Result(ResultDTO resultDTO);
 }
