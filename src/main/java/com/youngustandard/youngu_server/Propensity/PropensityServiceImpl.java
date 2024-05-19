@@ -15,4 +15,9 @@ public class PropensityServiceImpl implements PropensityService{
     public List<PropensityDTO> get_Questions() {
         return propensityRepository.get_Question_List();
     }
+
+    @Override
+    public void save_Result(List<String> resultList) {
+
+    }
 }
