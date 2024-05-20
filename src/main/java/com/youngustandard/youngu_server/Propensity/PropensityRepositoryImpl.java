@@ -1,6 +1,7 @@
 package com.youngustandard.youngu_server.Propensity;
 
 import com.youngustandard.youngu_server.Mapper.PropensityMapper;
+import com.youngustandard.youngu_server.User.ChildDTO;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -26,5 +27,10 @@ public class PropensityRepositoryImpl implements PropensityRepository{
     //다음번 테스트 검사 결과 번호 찾기
     public ResultDTO find_next_test_rslt_no(ResultDTO resultDTO) {
         return propensityMapper.find_next_test_rslt_no(resultDTO);
+    }
+
+    @Override
+    public PrpnsDataDTO find_propensity(ChildDTO childDTO) {
+        return propensityMapper.find_propensity(childDTO);
     }
 }

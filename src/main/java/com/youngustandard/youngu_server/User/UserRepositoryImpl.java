@@ -43,7 +43,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public int find_specific_child(ResultDTO resultDTO) {
+    public ChildDTO find_specific_child(ResultDTO resultDTO) {
         return userMapper.find_specific_child(resultDTO);
     }
 

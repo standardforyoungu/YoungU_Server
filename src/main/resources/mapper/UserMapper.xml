@@ -36,8 +36,8 @@
         WHERE MBR_ID = #{mbr_id} AND CHL_ID = #{chl_id}
     </update>
 
-    <select id = "find_specific_child" parameterType="com.youngustandard.youngu_server.Propensity.ResultDTO" resultType="int">
-        SELECT COUNT(*)
+    <select id = "find_specific_child" parameterType="com.youngustandard.youngu_server.Propensity.ResultDTO" resultType="com.youngustandard.youngu_server.User.ChildDTO">
+        SELECT MBR_ID,CHL_ID, CHL_NCK_NM,CHL_SEX,CHL_AGE,CHL_MBTI
         FROM YS_CHILD
         WHERE MBR_ID = #{mbr_id} AND CHL_ID = #{chl_id}
     </select>

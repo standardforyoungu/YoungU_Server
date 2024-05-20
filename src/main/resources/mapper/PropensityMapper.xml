@@ -16,4 +16,9 @@
         INSERT INTO YS_TEST_RESULT(MBR_ID,CHL_ID,TEST_RSLT_NO,TEST_RSLT,FST_INPR,LAST_UPDR)
         VALUES(#{mbr_id},#{chl_id},#{test_rslt_no},#{test_rslt},#{mbr_id},#{mbr_id})
     </insert>
+    <select id = "find_propensity" parameterType="com.youngustandard.youngu_server.User.ChildDTO" resultType="com.youngustandard.youngu_server.Propensity.PrpnsDataDTO">
+        SELECT PRPNS_DATA, PRPNS_CHRCT,PRPNS_CHRCT_IMG,PRMR_LRN_MTHD,POST_LRN_MTHD,PRPNS_EXPLN,ACTV_KYW_1,ACTV_KYW_2,ACTV_KYW_3,ACTV_KYW_4,ACTV_KYW_5,ACTV_KYW_6,ACTV_KYW_7
+        FROM YS_PRPNS_DATA
+        WHERE PRPNS_DATA = #{chl_mbti};
+    </select>
 </mapper>

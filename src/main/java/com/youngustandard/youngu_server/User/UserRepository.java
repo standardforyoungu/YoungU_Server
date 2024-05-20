@@ -17,7 +17,7 @@ public interface UserRepository {
 
     int update_ChildInfo(ChildDTO childDTO);
 
-    int find_specific_child(ResultDTO resultDTO);
+    ChildDTO find_specific_child(ResultDTO resultDTO);
 
     int update_Child_Result(ResultDTO resultDTO);
 }

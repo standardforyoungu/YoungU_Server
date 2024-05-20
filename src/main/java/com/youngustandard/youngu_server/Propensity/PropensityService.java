@@ -1,5 +1,7 @@
 package com.youngustandard.youngu_server.Propensity;
 
+import com.youngustandard.youngu_server.User.ChildDTO;
+
 import java.util.List;
 
 public interface PropensityService {
@@ -10,4 +12,6 @@ public interface PropensityService {
 
     ////다음번 테스트 검사 결과 번호 찾기
     ResultDTO find_next_test_rslt_no(ResultDTO resultDTO);
+
+    PrpnsDataDTO find_propensity(ChildDTO childDTO);
 }
