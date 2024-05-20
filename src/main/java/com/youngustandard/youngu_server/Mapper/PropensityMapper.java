@@ -16,5 +16,5 @@ public interface PropensityMapper {
 
     ResultDTO find_next_test_rslt_no(ResultDTO resultDTO); //다음번 테스트 검사 결과 번호 찾기
 
-    PrpnsDataDTO find_propensity(ChildDTO childDTO);
+    PrpnsDataDTO find_propensity(String prpns_data);
 }

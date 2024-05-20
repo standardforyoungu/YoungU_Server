@@ -11,4 +11,6 @@ public interface KindergardenMapper {
     List<KindergardenDTO> getFstKindergarden_list(String regn_cd);
     List<KindergardenDTO> getKindergarden_list(HashMap<String, Object> param);
     int count_row_num_YS_REGN(int regn_cd);
+
+    List<KindergardenDTO> find_recommend_list(HashMap<String, String> map);
 }

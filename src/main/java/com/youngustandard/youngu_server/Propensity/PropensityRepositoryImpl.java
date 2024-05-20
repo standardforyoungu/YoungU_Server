@@ -30,7 +30,7 @@ public class PropensityRepositoryImpl implements PropensityRepository{
     }
 
     @Override
-    public PrpnsDataDTO find_propensity(ChildDTO childDTO) {
-        return propensityMapper.find_propensity(childDTO);
+    public PrpnsDataDTO find_propensity(String prpns_data) {
+        return propensityMapper.find_propensity(prpns_data);
     }
 }

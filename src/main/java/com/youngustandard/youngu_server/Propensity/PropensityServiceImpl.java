@@ -55,8 +55,8 @@ public class PropensityServiceImpl implements PropensityService{
     }
 
     @Override
-    public PrpnsDataDTO find_propensity(ChildDTO childDTO) {
-        return propensityRepository.find_propensity(childDTO);
+    public PrpnsDataDTO find_propensity(String prpns_data) {
+        return propensityRepository.find_propensity(prpns_data);
     }
 
     //가장 많이 출현하는 성향 찾는 함수
