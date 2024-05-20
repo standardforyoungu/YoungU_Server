@@ -18,4 +18,10 @@
         FROM YS_ENGL_KD_CLAS
         WHERE REGN_CD = #{regn_cd}
     </select>
+
+    <select id = "find_recommend_list" parameterType="map" resultType="com.youngustandard.youngu_server.Kindergarden.KindergardenDTO">
+        SELECT ENGL_KD_CLAS_ID,ENGL_KD_CLAS_NM,ENGL_KD_CLAS_ADDR,ENGL_KD_CLAS_TELNO,ENGL_KD_CLAS_LNK
+        FROM YS_ENGL_KD_CLAS
+        WHERE LRN_MTHD = #{prmr_lrn_mthd} OR LRN_MTHD = #{post_lrn_mthd}
+    </select>
 </mapper>

@@ -1,7 +1,10 @@
 package com.youngustandard.youngu_server.Kindergarden;
 
 import com.youngustandard.youngu_server.Exception.NotFoundException;
+import com.youngustandard.youngu_server.Propensity.PropensityService;
+import com.youngustandard.youngu_server.Propensity.PrpnsDataDTO;
 import com.youngustandard.youngu_server.Response.Kd_Clas_Response;
+import com.youngustandard.youngu_server.Response.Kd_Recomend_Response;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -12,12 +15,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.nio.charset.Charset;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
 public class KindergardenController {
 
     private final KindergardenService kindergardenService;
+    private final PropensityService propensityService;
 
     //영어 유치부 리스트 조회
     @GetMapping("/youngustandard/{regn_cd}/{page_num}")
@@ -49,5 +54,23 @@ public class KindergardenController {
         kdClasResponse.setEngl_kd_clas_list(kindergardenService.getKindergarden(regn_cd,offset));
 
         return new ResponseEntity<>(kdClasResponse,httpHeaders, HttpStatus.OK);
+    }
+    //추천 영어 유치부 조회
+    @GetMapping("/youngustandard/recommend/{prpns_data}")
+    public ResponseEntity<Kd_Recomend_Response> search_Recommend_list(@PathVariable String prpns_data){
+        PrpnsDataDTO prpnsDataDTO = propensityService.find_propensity(prpns_data);
+        if(prpnsDataDTO == null){
+            throw new NotFoundException("해당 성향을 찾을 수 없어요. 다시 시도해주시기 바랍니다.");
+        }
+
+        List<KindergardenDTO> kindergardenDTOList = kindergardenService.find_recommend_list(prpnsDataDTO);
+
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
+        Kd_Recomend_Response kdRecomendResponse  = new Kd_Recomend_Response();
+        kdRecomendResponse.setResult("Success");
+        kdRecomendResponse.setEngl_kd_clas_list(kindergardenDTOList);
+
+        return new ResponseEntity<>(kdRecomendResponse,httpHeaders, HttpStatus.OK);
     }
 }

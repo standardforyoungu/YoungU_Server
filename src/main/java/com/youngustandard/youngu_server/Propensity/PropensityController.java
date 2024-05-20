@@ -88,7 +88,7 @@ public class PropensityController {
             throw new NotFoundException("해당 아이를 찾을 수 없습니다. 다시 시도해주시기 바랍니다.");
         }
         //해당 아이의 성향으로 그 성향 특징 가져오고
-        PrpnsDataDTO prpnsDataDTO = propensityService.find_propensity(childDTO);
+        PrpnsDataDTO prpnsDataDTO = propensityService.find_propensity(childDTO.getChl_mbti());
         //특징을 바탕으로 추천 영어 유치부를 가져온다
         if(prpnsDataDTO == null){
             throw new NotFoundException("해당 성향을 찾을 수 없어요. 다시 시도해주시기 바랍니다.");

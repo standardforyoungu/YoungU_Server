@@ -1,5 +1,6 @@
 package com.youngustandard.youngu_server.Kindergarden;
 
+import com.youngustandard.youngu_server.Propensity.PrpnsDataDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -25,5 +26,13 @@ public class KindergardenServiceImpl implements KindergardenService{
     @Override
     public int row_cnum_YS_REGN(String regn_cd) {
         return kindergardenRepository.getRowNum_YS_REGN(Integer.parseInt(regn_cd));
+    }
+
+    @Override
+    public List<KindergardenDTO> find_recommend_list(PrpnsDataDTO prpnsDataDTO) {
+        HashMap<String,String> map = new HashMap<>();
+        map.put("prmr_lrn_mthd", prpnsDataDTO.getPrmr_lrn_mthd());
+        map.put("post_lrn_mthd", prpnsDataDTO.getPost_lrn_mthd());
+        return kindergardenRepository.find_recommend_list(map);
     }
 }

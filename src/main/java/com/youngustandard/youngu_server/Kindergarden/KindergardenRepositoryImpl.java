@@ -23,4 +23,9 @@ public class KindergardenRepositoryImpl implements KindergardenRepository{
     public int getRowNum_YS_REGN(int regn_cd) {
         return kindergardenMapper.count_row_num_YS_REGN(regn_cd);
     }
+
+    @Override
+    public List<KindergardenDTO> find_recommend_list(HashMap<String, String> map) {
+        return kindergardenMapper.find_recommend_list(map);
+    }
 }
