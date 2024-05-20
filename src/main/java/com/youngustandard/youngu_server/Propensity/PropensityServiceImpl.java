@@ -2,6 +2,7 @@ package com.youngustandard.youngu_server.Propensity;
 
 import com.youngustandard.youngu_server.Exception.NotFoundException;
 import com.youngustandard.youngu_server.Exception.ViolateRuleException;
+import com.youngustandard.youngu_server.User.ChildDTO;
 import com.youngustandard.youngu_server.User.UserRepository;
 import org.springframework.stereotype.Service;
 
@@ -51,6 +52,11 @@ public class PropensityServiceImpl implements PropensityService{
     //다음번 테스트 검사 결과 번호 찾기
     public ResultDTO find_next_test_rslt_no(ResultDTO resultDTO) {
         return propensityRepository.find_next_test_rslt_no(resultDTO);
+    }
+
+    @Override
+    public PrpnsDataDTO find_propensity(ChildDTO childDTO) {
+        return propensityRepository.find_propensity(childDTO);
     }
 
     //가장 많이 출현하는 성향 찾는 함수
