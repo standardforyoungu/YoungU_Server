@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//iybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.youngustandard.youngu_server.Mapper.ReviewMapper">
+
+    <select id = "find_Review_YN" parameterType="String" resultType="int">
+        SELECT COUNT(*)
+        FROM YS_REVIEW
+        WHERE MBR_ID = #{id}
+    </select>
+
+    <insert id = "save_Review" parameterType="com.youngustandard.youngu_server.Review.ReviewDTO">
+        INSERT INTO YS_REVIEW(MBR_ID,MBR_RVW,MBR_STAR,FST_INPR,LAST_UPDR)
+        VALUES(#{mbr_id},#{mbr_rvw},#{mbr_star},#{mbr_id},#{mbr_id})
+    </insert>
+
+</mapper>
