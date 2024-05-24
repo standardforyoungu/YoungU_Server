@@ -6,7 +6,7 @@ import java.util.List;
 public interface KindergardenRepository {
 
     public List<KindergardenDTO> getKindergarden(HashMap<String,Object> param);
-    public int getRowNum_YS_REGN(int regn_cd);
+    public int getRowNum_YS_REGN(HashMap<String,Integer> map);
 
     List<KindergardenDTO> find_recommend_list(HashMap<String, String> map);
 }
