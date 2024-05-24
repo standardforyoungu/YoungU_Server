@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//iybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.youngustandard.youngu_server.Mapper.VoteMapper">
+
+    <insert id="save_Vote" parameterType="map">
+        INSERT INTO YS_VOTE(REGN_CD, CITY_CD, FST_INPR,LAST_UPDR)
+        VALUES(#{regn_cd},#{city_cd},"admin","admin")
+    </insert>
+
+</mapper>
