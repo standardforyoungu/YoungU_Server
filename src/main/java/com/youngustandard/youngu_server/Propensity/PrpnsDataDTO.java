@@ -10,7 +10,8 @@ import lombok.NoArgsConstructor;
 public class PrpnsDataDTO {
     private String prpns_data;
     private String prpns_chrct;
-    private String prpns_chrct_img;
+    private String prpns_chrct_img1;
+    private String prpns_chrct_img2;
     private String prmr_lrn_mthd;
     private String post_lrn_mthd;
     private String prpns_expln;
