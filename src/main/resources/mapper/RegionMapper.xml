@@ -6,7 +6,7 @@
     <select id = "find_all_regn" resultType="com.youngustandard.youngu_server.Region.RegionDTO">
         SELECT REGN_CD,CITY_CD,REGN_NM,CITY_NM
         FROM YS_REGN
-        WHERE OPEN_YN !=1;
+        WHERE OPEN_YN !=1
     </select>
 
 </mapper>

@@ -27,4 +27,19 @@ public class KakaoLoginRepositoryImpl implements LoginRepository{
     public int add_User_Secret(LoginDTO loginDTO) {
         return loginMapper.add_User_Secret(loginDTO);
     }
+
+    @Override
+    public void delete_YS_MEMBER(String mbrId) {
+        loginMapper.delete_YS_MEMBER(mbrId);
+    }
+
+    @Override
+    public void delete_YS_REVIEW(String mbrId) {
+        loginMapper.delete_YS_REVIEW(mbrId);
+    }
+
+    @Override
+    public void delete_YS_TEST_RESULT(String mbrId) {
+        loginMapper.delete_YS_TEST_RESULT(mbrId);
+    }
 }

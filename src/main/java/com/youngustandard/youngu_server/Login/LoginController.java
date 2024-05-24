@@ -1,5 +1,6 @@
 package com.youngustandard.youngu_server.Login;
 
+import com.youngustandard.youngu_server.Response.DefaultResponse;
 import com.youngustandard.youngu_server.Response.LoginResponse;
 import jakarta.servlet.http.Cookie;
 import org.springframework.http.*;
@@ -74,5 +75,18 @@ public class LoginController {
                 .sameSite("Strict")
                 .build();
         return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString()).body(loginResponse);
+    }
+
+    //회원탈퇴
+    @DeleteMapping("/youngustandard/withdraw/{mbr_id}")
+    public ResponseEntity<DefaultResponse> withdraw_User(@PathVariable String mbr_id){
+        loginService.withdraw_user(mbr_id);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
+        DefaultResponse defaultResponse = new DefaultResponse();
+        defaultResponse.setResult("Success");
+        defaultResponse.setMessage("안녕히 가세요.");
+
+        return new ResponseEntity<>(defaultResponse,headers, HttpStatus.OK);
     }
 }

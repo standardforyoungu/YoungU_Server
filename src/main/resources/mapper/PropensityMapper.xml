@@ -5,7 +5,7 @@
 
     <select id = "get_Question_List" resultType="com.youngustandard.youngu_server.Propensity.PropensityDTO">
         SELECT TEST_QSTN_ID, TEST_QSTN_CNTNT, CHC1_PRPNS, CHC1_CNTNT, CHC2_PRPNS, CHC2_CNTNT
-        FROM YS_TEST_QSTN;
+        FROM YS_TEST_QSTN
     </select>
     <select id = "find_next_test_rslt_no" resultType="com.youngustandard.youngu_server.Propensity.ResultDTO">
         SELECT MAX(TEST_RSLT_NO) AS TEST_RSLT_NO
@@ -19,6 +19,6 @@
     <select id = "find_propensity" parameterType="String" resultType="com.youngustandard.youngu_server.Propensity.PrpnsDataDTO">
         SELECT PRPNS_DATA, PRPNS_CHRCT,PRPNS_CHRCT_IMG1,PRPNS_CHRCT_IMG2,PRMR_LRN_MTHD,POST_LRN_MTHD,PRPNS_EXPLN,ACTV_KYW_1,ACTV_KYW_2,ACTV_KYW_3,ACTV_KYW_4,ACTV_KYW_5,ACTV_KYW_6,ACTV_KYW_7
         FROM YS_PRPNS_DATA
-        WHERE PRPNS_DATA = #{chl_mbti};
+        WHERE PRPNS_DATA = #{chl_mbti}
     </select>
 </mapper>
