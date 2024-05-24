@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.nio.charset.Charset;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -25,16 +27,20 @@ public class KindergardenController {
     private final PropensityService propensityService;
 
     //영어 유치부 리스트 조회
-    @GetMapping("/youngustandard/{regn_cd}/{page_num}")
-    public ResponseEntity<Object> find_kindergardens(@PathVariable String regn_cd, @PathVariable String page_num){
+    @GetMapping("/youngustandard/{regn_cd}/{city_cd}/{page_num}")
+    public ResponseEntity<Object> find_kindergardens(@PathVariable String regn_cd,@PathVariable String city_cd, @PathVariable String page_num){
 
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
 
+        HashMap<String, Integer> map = new HashMap<>();
+        map.put("regn_cd",Integer.parseInt(regn_cd));
+        map.put("city_cd",Integer.parseInt(city_cd));
         //없는 지역코드일 경우 에러 발생
-        int count_row = kindergardenService.row_cnum_YS_REGN(regn_cd);
+        int count_row = kindergardenService.row_cnum_YS_REGN(map);
+
         if(count_row <= 0){
-            throw new NotFoundException("없는 지역입니다..");
+            throw new NotFoundException("없는 지역입니다.");
         }
         int current_page_num = Integer.parseInt(page_num);  //현재페이지
         int last_page_num = count_row / 10 + 1;             //마지막페이지
@@ -51,7 +57,7 @@ public class KindergardenController {
         kdClasResponse.setResult("Success");
         kdClasResponse.setLast_page_num(last_page_num);
         kdClasResponse.setCurrent_page(Integer.parseInt(page_num));
-        kdClasResponse.setEngl_kd_clas_list(kindergardenService.getKindergarden(regn_cd,offset));
+        kdClasResponse.setEngl_kd_clas_list(kindergardenService.getKindergarden(regn_cd,city_cd,offset));
 
         return new ResponseEntity<>(kdClasResponse,httpHeaders, HttpStatus.OK);
     }

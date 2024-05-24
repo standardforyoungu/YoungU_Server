@@ -15,17 +15,18 @@ public class KindergardenServiceImpl implements KindergardenService{
     }
 
     @Override
-    public List<KindergardenDTO> getKindergarden(String regn_cd, int offset) {
+    public List<KindergardenDTO> getKindergarden(String regn_cd, String city_cd, int offset) {
 
         HashMap<String,Object> param = new HashMap<>();
-        param.put("regn_cd",regn_cd);
+        param.put("regn_cd",Integer.parseInt(regn_cd));
+        param.put("city_cd",Integer.parseInt(city_cd));
         param.put("offset",offset);
         return kindergardenRepository.getKindergarden(param);
     }
 
     @Override
-    public int row_cnum_YS_REGN(String regn_cd) {
-        return kindergardenRepository.getRowNum_YS_REGN(Integer.parseInt(regn_cd));
+    public int row_cnum_YS_REGN(HashMap<String,Integer> map) {
+        return kindergardenRepository.getRowNum_YS_REGN(map);
     }
 
     @Override

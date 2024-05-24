@@ -7,16 +7,18 @@
         SELECT ENGL_KD_CLAS_ID,ENGL_KD_CLAS_NM,ENGL_KD_CLAS_ADDR,ENGL_KD_CLAS_TELNO,ENGL_KD_CLAS_LNK
         FROM YS_ENGL_KD_CLAS
         WHERE REGN_CD = #{regn_cd}
+        AND CITY_CD = #{city_cd}
         <choose>
             <when test='offset lt 10'> LIMIT 0,10 </when>
             <otherwise> LIMIT #{offset},10 </otherwise>
         </choose>
     </select>
 
-    <select id = "count_row_num_YS_REGN" parameterType="int" resultType="int">
+    <select id = "count_row_num_YS_REGN" parameterType="map" resultType="int">
         SELECT COUNT(*)
         FROM YS_ENGL_KD_CLAS
         WHERE REGN_CD = #{regn_cd}
+        AND CITY_CD = #{city_cd}
     </select>
 
     <select id = "find_recommend_list" parameterType="map" resultType="com.youngustandard.youngu_server.Kindergarden.KindergardenDTO">

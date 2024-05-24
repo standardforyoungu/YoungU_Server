@@ -10,7 +10,7 @@ import java.util.List;
 public interface KindergardenMapper {
     List<KindergardenDTO> getFstKindergarden_list(String regn_cd);
     List<KindergardenDTO> getKindergarden_list(HashMap<String, Object> param);
-    int count_row_num_YS_REGN(int regn_cd);
+    int count_row_num_YS_REGN(HashMap<String, Integer> map);
 
     List<KindergardenDTO> find_recommend_list(HashMap<String, String> map);
 }
