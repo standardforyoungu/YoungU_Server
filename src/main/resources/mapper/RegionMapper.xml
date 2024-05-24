@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//iybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.youngustandard.youngu_server.Mapper.RegionMapper">
+
+    <select id = "find_all_regn" resultType="com.youngustandard.youngu_server.Region.RegionDTO">
+        SELECT REGN_CD,CITY_CD,REGN_NM,CITY_NM
+        FROM YS_REGN
+        WHERE OPEN_YN !=1;
+    </select>
+
+</mapper>
