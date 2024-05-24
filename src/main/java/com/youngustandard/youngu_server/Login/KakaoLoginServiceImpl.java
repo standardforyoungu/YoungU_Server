@@ -189,4 +189,16 @@ public class KakaoLoginServiceImpl implements LoginService{
         return d_map;
     }
 
+    @Override
+    public void withdraw_user(String mbrId) {
+        // YS_MEMBER 삭제
+        // YS_REVEIW 삭제
+        // YS_TEST_RESULT 삭제
+        loginRepository.delete_YS_MEMBER(mbrId);
+        loginRepository.delete_YS_REVIEW(mbrId);
+        loginRepository.delete_YS_TEST_RESULT(mbrId);
+
+
+    }
+
 }

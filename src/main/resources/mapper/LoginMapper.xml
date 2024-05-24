@@ -18,4 +18,16 @@
         INSERT INTO YS_MEMBER_SECRET(MBR_ID,MBR_TOKEN,FST_INPR,LAST_UPDR)
         VALUES(#{mbr_id},#{refresh_token},#{mbr_id},#{mbr_id})
     </insert>
+
+    <delete id="delete_YS_MEMBER" parameterType="String">
+        DELETE FROM YS_MEMBER WHERE MBR_ID = #{mbr_id}
+    </delete>
+
+    <delete id="delete_YS_REVIEW" parameterType="String">
+        DELETE FROM YS_REVIEW WHERE MBR_ID = #{mbr_id}
+    </delete>
+
+    <delete id="delete_YS_TEST_RESULT" parameterType="String">
+        DELETE FROM YS_TEST_RESULT WHERE MBR_ID = #{mbr_id}
+    </delete>
 </mapper>
