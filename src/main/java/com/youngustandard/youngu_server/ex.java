@@ -10,10 +10,8 @@ import java.util.Base64;
 @RestController
 public class ex {
     @GetMapping("/")
-    public ModelAndView mainPage(){
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("main");
-        return mav;
+    public String mainPage(){
+        return "Main Page";
     }
     @GetMapping("/test")
     public String test(){
