@@ -21,10 +21,10 @@ public class AuthorizeAop {
     
     @Autowired
     private LoginService loginService;
-//    public AuthorizeAop(LoginService loginService){
-//        this.loginService=loginService;
-//
-//    }
+    public AuthorizeAop(LoginService loginService){
+        this.loginService=loginService;
+
+    }
     //Before 어노테이션으로 @LoginCheck가 달린 메소드 시작 전에 Advice가 적용되도록 포인트 컷 해줌
 //    @Before("@annotation(com.youngustandard.youngu_server.Config.AuthorizeCheck)")
 //    public void AuthorizeCheck(){
