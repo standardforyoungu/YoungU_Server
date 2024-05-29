@@ -18,8 +18,7 @@ public class AuthorizeAop {
 
     @Autowired
     private HttpServletRequest request;
-    
-    @Autowired
+
     private LoginService loginService;
     public AuthorizeAop(LoginService loginService){
         this.loginService=loginService;
