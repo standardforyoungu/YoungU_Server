@@ -15,8 +15,8 @@
         WHERE MBR_ID = #{mbr_id}
     </select>
 
-    <select id = "find_Max_Child_Id" parameterType="String" resultType="com.youngustandard.youngu_server.User.ChildDTO">
-        SELECT MAX(CHL_ID)
+    <select id = "find_Max_Child_Id" parameterType="com.youngustandard.youngu_server.User.ChildDTO" resultType="com.youngustandard.youngu_server.User.ChildDTO">
+        SELECT MAX(CHL_ID) AS CHL_ID
         FROM YS_CHILD
         WHERE MBR_ID = #{mbr_id}
     </select>
