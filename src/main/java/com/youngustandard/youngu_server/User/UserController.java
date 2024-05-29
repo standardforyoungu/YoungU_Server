@@ -70,11 +70,13 @@ public class UserController {
             throw new NotFoundException("해당 유저의 정보를 찾을 수 없습니다.");
         }
         childDTO.setMbr_id(mbr_id);
+
         if(userService.find_Max_Child_Id(childDTO)==null){
             next_child_id=1;
         }
         else{
             next_child_id = userService.find_Max_Child_Id(childDTO).getChl_id()+1;
+
         }
 
         if(next_child_id>3){

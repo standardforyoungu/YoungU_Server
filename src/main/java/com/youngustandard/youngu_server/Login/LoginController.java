@@ -89,4 +89,11 @@ public class LoginController {
 
         return new ResponseEntity<>(defaultResponse,headers, HttpStatus.OK);
     }
+
+    @GetMapping("/youngustandard/logout")
+    public void logout(){
+        //헤더에서 access_token 뽑아내고
+        String access_token = null;
+        loginService.logout(access_token);
+    }
 }

@@ -34,6 +34,8 @@ public class KakaoLoginServiceImpl implements LoginService{
     private String KAKAO_GET_ACCESS_TOKEN_URL;
     @Value("${jwt.secretKey}")
     private String jwt_secret_key;
+    @Value("${kakao.logoutURL}")
+    private String KAKAO_LOGOUT_URL;
     @Override
     public String getRedirectURL() {
         return KAKAO_LOCATION+"&client_id="+KAKAO_CLIENT_ID+"&redirect_uri="+KAKAO_REDIRECT_URL;
@@ -77,7 +79,7 @@ public class KakaoLoginServiceImpl implements LoginService{
         ObjectMapper objectMapper = new ObjectMapper();
         Map<String,Object> jsonMap = objectMapper.readValue(result, new TypeReference<Map<String, Object>>() {
         });
-        System.out.println("jsonMap = " + jsonMap);
+
         LoginDTO loginDTO = new LoginDTO();
         loginDTO.setAccess_token(jsonMap.get("access_token").toString());
         loginDTO.setRefresh_token(jsonMap.get("refresh_token").toString());
@@ -198,6 +200,11 @@ public class KakaoLoginServiceImpl implements LoginService{
         loginRepository.delete_YS_REVIEW(mbrId);
         loginRepository.delete_YS_TEST_RESULT(mbrId);
 
+
+    }
+
+    @Override
+    public void logout(String accessToken) {
 
     }
 

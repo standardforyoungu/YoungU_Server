@@ -18,4 +18,6 @@ public interface LoginService {
     HashMap<String,Object> decode_JWT(String token);
 
     void withdraw_user(String mbrId);
+
+    void logout(String accessToken);
 }
