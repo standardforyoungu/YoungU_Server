@@ -1,5 +1,6 @@
 package com.youngustandard.youngu_server.Review;
 
+import com.youngustandard.youngu_server.Config.AuthorizeCheck;
 import com.youngustandard.youngu_server.Exception.NotFoundException;
 import com.youngustandard.youngu_server.Response.DefaultResponse;
 import com.youngustandard.youngu_server.Response.ReviewYNResponse;
@@ -19,9 +20,10 @@ public class ReviewController {
         this.reviewService=reviewService;
     }
 
-    @GetMapping("/youngustandard/review/{mbr_id}")
+    @GetMapping("/youngustandard/review")
+    @AuthorizeCheck
     //리뷰 작성 여부
-    public ResponseEntity<ReviewYNResponse> Review_YN(@PathVariable String mbr_id){
+    public ResponseEntity<ReviewYNResponse> Review_YN(String mbr_id){
         int review_count = reviewService.find_Review_YN(mbr_id);
         ReviewYNResponse reviewYNResponse = new ReviewYNResponse();
         reviewYNResponse.setResult("Success");
