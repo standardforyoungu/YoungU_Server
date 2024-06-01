@@ -20,8 +20,8 @@ public class ReviewController {
         this.reviewService=reviewService;
     }
 
-    @GetMapping("/youngustandard/review")
-    @AuthorizeCheck
+    @GetMapping("/youngustandard/review/{mbr_id}")
+    //@AuthorizeCheck
     //리뷰 작성 여부
     public ResponseEntity<ReviewYNResponse> Review_YN(String mbr_id){
         int review_count = reviewService.find_Review_YN(mbr_id);

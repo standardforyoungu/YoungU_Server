@@ -66,6 +66,8 @@ public class LoginController {
         String jwt_refresh_toekn = loginService.create_JWT(loginDTO.getRefresh_token(),"RT", loginDTO.getMbr_id());
         loginResponse.setAccess_token(jwt_access_toekn);
 
+        loginResponse.setMbr_id(loginDTO.getMbr_id());
+
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
         System.out.println(" =4 " );
@@ -81,8 +83,8 @@ public class LoginController {
     }
 
     //회원탈퇴
-    @RequestMapping(value="/youngustandard/withdraw", method = {RequestMethod.DELETE})
-    @AuthorizeCheck
+    @RequestMapping(value="/youngustandard/withdraw/{mbr_id}", method = {RequestMethod.DELETE})
+    //@AuthorizeCheck
     public ResponseEntity<DefaultResponse> withdraw_User(@PathVariable String mbr_id){
         loginService.withdraw_user(mbr_id);
         HttpHeaders headers = new HttpHeaders();
@@ -94,7 +96,7 @@ public class LoginController {
         return new ResponseEntity<>(defaultResponse,headers, HttpStatus.OK);
     }
     @RequestMapping(value="/youngustandard/logout", method = {RequestMethod.GET})
-    @AuthorizeCheck
+    //@AuthorizeCheck
     public void logout(){
         //헤더에서 access_token 뽑아내고
         String access_token = null;
