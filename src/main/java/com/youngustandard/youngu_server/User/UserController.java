@@ -5,6 +5,7 @@ import com.youngustandard.youngu_server.Exception.NotFoundException;
 import com.youngustandard.youngu_server.Exception.ViolateRuleException;
 import com.youngustandard.youngu_server.Response.ChildResponse;
 import com.youngustandard.youngu_server.Response.DefaultResponse;
+import com.youngustandard.youngu_server.Response.PropensityResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -62,7 +63,7 @@ public class UserController {
 
     @PostMapping("/youngustandard/user/{mbr_id}/child")
    // @AuthorizeCheck
-    public ResponseEntity<DefaultResponse> insert_ChildInfo(@Valid @RequestBody ChildDTO childDTO, @PathVariable String mbr_id){
+    public ResponseEntity<PropensityResponse> insert_ChildInfo(@Valid @RequestBody ChildDTO childDTO, @PathVariable String mbr_id){
        int next_child_id;
         if(!(childDTO.getChl_sex().equals("F") || childDTO.getChl_sex().equals("M"))){
            throw new ViolateRuleException("아이는 여아 혹은 남아입니다.");
@@ -78,7 +79,6 @@ public class UserController {
         }
         else{
             next_child_id = userService.find_Max_Child_Id(childDTO).getChl_id()+1;
-
         }
 
         if(next_child_id>3){
@@ -92,9 +92,10 @@ public class UserController {
         }
 
         httpHeaders.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
-        DefaultResponse defaultResponse = new DefaultResponse();
+        PropensityResponse defaultResponse = new PropensityResponse();
         defaultResponse.setResult("Success");
         defaultResponse.setMessage("아이 정보를 성공적으로 저장하였습니다.");
+        defaultResponse.setChl_id(next_child_id);
         return new ResponseEntity<>(defaultResponse,httpHeaders, HttpStatus.OK);
     }
 
