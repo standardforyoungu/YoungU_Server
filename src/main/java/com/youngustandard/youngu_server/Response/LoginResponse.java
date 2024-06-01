@@ -11,4 +11,5 @@ public class LoginResponse {
     private String result;
     private String exist_yn;
     private String access_token;
+    private String mbr_id;
 }

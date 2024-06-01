@@ -24,10 +24,10 @@ public class UserController {
     private static HttpHeaders httpHeaders = new HttpHeaders();
 
     //@GetMapping("/youngustandard/user")
-    @GetMapping("/youngustandard/user")
+    @GetMapping("/youngustandard/user/{mbr_id}")
     // 유저 정보 조회
-    @AuthorizeCheck
-    public ResponseEntity<MemberDTO> search_UserInfo(String mbr_id){
+    //@AuthorizeCheck
+    public ResponseEntity<MemberDTO> search_UserInfo(@PathVariable String mbr_id){
         System.out.println("유저정보조회");
         System.out.println("mbr_id = " + mbr_id);
         MemberDTO memberDTO = userService.get_UserInfo(mbr_id);
@@ -40,10 +40,10 @@ public class UserController {
     }
 
     //@GetMapping("/youngustandard/user/child")
-    @GetMapping("/youngustandard/user/child")
+    @GetMapping("/youngustandard/user/{mbr_id}/child")
     //특정 유저의 아이 전체 조회
-    @AuthorizeCheck
-    public ResponseEntity<ChildResponse> search_AllChildInfo(String mbr_id){
+//    @AuthorizeCheck
+    public ResponseEntity<ChildResponse> search_AllChildInfo(@PathVariable String mbr_id){
 
         MemberDTO memberDTO = userService.get_UserInfo(mbr_id);
         if(memberDTO == null){
@@ -60,9 +60,9 @@ public class UserController {
         return new ResponseEntity<>(childResponse,httpHeaders, HttpStatus.OK);
     }
 
-    @PostMapping("/youngustandard/user/child")
-    @AuthorizeCheck
-    public ResponseEntity<DefaultResponse> insert_ChildInfo(@Valid @RequestBody ChildDTO childDTO, String mbr_id){
+    @PostMapping("/youngustandard/user/{mbr_id}/child")
+   // @AuthorizeCheck
+    public ResponseEntity<DefaultResponse> insert_ChildInfo(@Valid @RequestBody ChildDTO childDTO, @PathVariable String mbr_id){
        int next_child_id;
         if(!(childDTO.getChl_sex().equals("F") || childDTO.getChl_sex().equals("M"))){
            throw new ViolateRuleException("아이는 여아 혹은 남아입니다.");
@@ -98,9 +98,9 @@ public class UserController {
         return new ResponseEntity<>(defaultResponse,httpHeaders, HttpStatus.OK);
     }
 
-    @DeleteMapping("/youngustandard/user/child")
-    @AuthorizeCheck
-    public ResponseEntity<DefaultResponse> delete_ChildInfo(@RequestBody ChildDTO childDTO, String mbr_id){
+    @DeleteMapping("/youngustandard/user/{mbr_id}/child")
+    //@AuthorizeCheck
+    public ResponseEntity<DefaultResponse> delete_ChildInfo(@RequestBody ChildDTO childDTO, @PathVariable String mbr_id){
         MemberDTO memberDTO = userService.get_UserInfo(mbr_id);
         if(memberDTO == null){
             throw new NotFoundException("해당 유저의 정보를 찾을 수 없습니다.");
@@ -116,9 +116,9 @@ public class UserController {
         defaultResponse.setMessage("아이 정보를 성공적으로 삭제하였습니다.");
         return new ResponseEntity<>(defaultResponse,httpHeaders, HttpStatus.OK);
     }
-    @PatchMapping("/youngustandard/user/child")
-    @AuthorizeCheck
-    public ResponseEntity<DefaultResponse> update_ChildInfo(@RequestBody ChildDTO childDTO, String mbr_id){
+    @PatchMapping("/youngustandard/user/{mbr_id}/child")
+    //@AuthorizeCheck
+    public ResponseEntity<DefaultResponse> update_ChildInfo(@RequestBody ChildDTO childDTO, @PathVariable String mbr_id){
         MemberDTO memberDTO = userService.get_UserInfo(mbr_id);
         if(memberDTO == null){
             throw new NotFoundException("해당 유저의 정보를 찾을 수 없습니다.");
