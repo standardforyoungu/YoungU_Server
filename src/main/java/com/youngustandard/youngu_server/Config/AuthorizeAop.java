@@ -54,6 +54,7 @@ public class AuthorizeAop {
 
     @Around("@annotation(com.youngustandard.youngu_server.Config.AuthorizeCheck)")
     public Object AuthorizeCheck(ProceedingJoinPoint jp) throws Throwable {
+        System.out.println("request = " + request);
         String access_value = request.getHeader("access_token");
         System.out.println("access_value = " + access_value);
         HashMap<String,Object> at_map = loginService.decode_JWT(access_value);
