@@ -28,7 +28,8 @@ public class UserController {
     // 유저 정보 조회
     @AuthorizeCheck
     public ResponseEntity<MemberDTO> search_UserInfo(String mbr_id){
-
+        System.out.println("유저정보조회");
+        System.out.println("mbr_id = " + mbr_id);
         MemberDTO memberDTO = userService.get_UserInfo(mbr_id);
         if(memberDTO == null){
             throw new NotFoundException("해당 유저의 정보를 찾을 수 없습니다.");
