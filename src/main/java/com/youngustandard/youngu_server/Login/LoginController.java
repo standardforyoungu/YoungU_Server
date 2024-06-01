@@ -37,14 +37,16 @@ public class LoginController {
     public ResponseEntity<Object> loginCallback( @RequestBody LoginDTO aloginDTO) throws Exception {
         LoginResponse loginResponse = new LoginResponse();
         //accessToken 이랑 refreshToken 발급
-
+        System.out.println(" =1 " );
         LoginDTO loginDTO = loginService.getToken(aloginDTO.getCode());
         //LoginDTO loginDTO = loginService.getToken(code);
         //accessToken으로 사용자 정보 받으러 가기
+        System.out.println(" =2" );
         loginDTO = loginService.getUserInfo(loginDTO);
-
+        System.out.println(" =3 " );
         //사용자 id로 신규유저인지 기존유저인지 확인하기
         boolean exists = loginService.find_User(loginDTO.getMbr_id());
+
         //디비에 존재하지 않는다면 false
         //존재한다면 true
         if(!exists){
@@ -66,7 +68,7 @@ public class LoginController {
 
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
-
+        System.out.println(" =4 " );
         //access_token 쿠키에 담아보내기
         ResponseCookie cookie = ResponseCookie.from("refresh_token",jwt_refresh_toekn)
                 .domain("localhost")
