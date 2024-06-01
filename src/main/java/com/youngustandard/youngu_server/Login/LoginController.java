@@ -34,7 +34,7 @@ public class LoginController {
     //@ResponseBody
     //@RequestBody LoginDTO aloginDTO
     @RequestMapping(value="/youngustandard/login/oauth2/callback", method = {RequestMethod.POST})
-    @AuthorizeCheck
+
     public ResponseEntity<Object> loginCallback( @RequestBody LoginDTO aloginDTO) throws Exception {
         LoginResponse loginResponse = new LoginResponse();
         //accessToken 이랑 refreshToken 발급
