@@ -32,7 +32,7 @@ public class LoginController {
     //@GetMapping("/youngustandard/login/oauth2/callback")
     //@ResponseBody
     //@RequestBody LoginDTO aloginDTO
-    @PostMapping("/youngustandard/login/oauth2/callback")
+    @RequestMapping(value="/youngustandard/login/oauth2/callback", method = {RequestMethod.POST})
     public ResponseEntity<Object> loginCallback( @RequestBody LoginDTO aloginDTO) throws Exception {
         LoginResponse loginResponse = new LoginResponse();
         //accessToken 이랑 refreshToken 발급
@@ -78,7 +78,8 @@ public class LoginController {
     }
 
     //회원탈퇴
-    @DeleteMapping("/youngustandard/withdraw/{mbr_id}")
+    @RequestMapping(value="/youngustandard/withdraw/{mbr_id}", method = {RequestMethod.DELETE})
+
     public ResponseEntity<DefaultResponse> withdraw_User(@PathVariable String mbr_id){
         loginService.withdraw_user(mbr_id);
         HttpHeaders headers = new HttpHeaders();
@@ -89,8 +90,7 @@ public class LoginController {
 
         return new ResponseEntity<>(defaultResponse,headers, HttpStatus.OK);
     }
-
-    @GetMapping("/youngustandard/logout")
+    @RequestMapping(value="/youngustandard/logout", method = {RequestMethod.GET})
     public void logout(){
         //헤더에서 access_token 뽑아내고
         String access_token = null;
