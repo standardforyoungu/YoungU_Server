@@ -13,7 +13,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         //모든 경로에 대해
         corsRegistry.addMapping("/**")
         //Origin이 http:localhost:3000에 대해
-        .allowedOrigins("http://localhost:3000","http://young-u-standard.site")
+        .allowedOrigins("http://localhost:3000","https://young-u-standard.site","https://was-young-u-standard.site")
                 .allowedMethods("GET","POST","PUT","PATCH","DELETE")
                 .allowedHeaders("*")
                 .allowCredentials(true)
