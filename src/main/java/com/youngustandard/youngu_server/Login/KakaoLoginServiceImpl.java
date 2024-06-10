@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.*;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
 
@@ -160,7 +161,7 @@ public class KakaoLoginServiceImpl implements LoginService{
                     .claim("id",id)
                     .claim("toekn",token)
                     .setIssuedAt(new Date(System.currentTimeMillis()))
-                    .setExpiration(new Date(System.currentTimeMillis()+59*60*6*1000))
+                    .setExpiration(new Date(System.currentTimeMillis()+60*60*6*10000))
                     .signWith(SignatureAlgorithm.HS256,jwt_secret_key)
                     .compact();
         }
@@ -188,6 +189,7 @@ public class KakaoLoginServiceImpl implements LoginService{
         JsonObject jsonObject = (JsonObject) obj;
         d_map.put("id",jsonObject.get("id"));
         d_map.put("exp", jsonObject.get("exp"));
+        d_map.put("token",jsonObject.get("toekn"));
         return d_map;
     }
 
@@ -204,8 +206,17 @@ public class KakaoLoginServiceImpl implements LoginService{
     }
 
     @Override
-    public void logout(String accessToken) {
+    public int logout(String accessToken) throws IOException {
+        URL url = new URL(KAKAO_LOGOUT_URL);
+        HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+        httpURLConnection.setRequestMethod("POST");
+        httpURLConnection.setRequestProperty("Authorization","Bearer "+accessToken);
+        int responseCode = httpURLConnection.getResponseCode();
 
+        if(responseCode!=200){
+            throw new NotFoundException("로그아웃에 실패했어요. 잠시 후 다시 시도해주세요");
+        }
+        return responseCode;
     }
 
 }

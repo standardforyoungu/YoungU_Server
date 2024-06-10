@@ -23,7 +23,7 @@ public class ReviewController {
     @GetMapping("/youngustandard/review/{mbr_id}")
     //@AuthorizeCheck
     //리뷰 작성 여부
-    public ResponseEntity<ReviewYNResponse> Review_YN(String mbr_id){
+    public ResponseEntity<ReviewYNResponse> Review_YN(@PathVariable String mbr_id){
         int review_count = reviewService.find_Review_YN(mbr_id);
         ReviewYNResponse reviewYNResponse = new ReviewYNResponse();
         reviewYNResponse.setResult("Success");
@@ -33,10 +33,12 @@ public class ReviewController {
     }
     @PostMapping("/youngustandard/review")
     public ResponseEntity<DefaultResponse> save_Review(@RequestBody ReviewDTO reviewDTO){
-        int proceed_result = reviewService.save_Review(reviewDTO);
-        if(proceed_result <1){
-            throw new NotFoundException("잠시 후 다시 시도해 주시기 바랍니다.");
+        int review_count = reviewService.find_Review_YN(reviewDTO.getMbr_id());
+        if(review_count > 0 ){
+            throw new NotFoundException("이미 리뷰 저장을 했어요.");
         }
+        int proceed_result = reviewService.save_Review(reviewDTO);
+
         httpHeaders.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
         DefaultResponse defaultResponse = new DefaultResponse();
         defaultResponse.setResult("Success");

@@ -1,6 +1,7 @@
 package com.youngustandard.youngu_server.Login;
 
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.HashMap;
 
@@ -19,5 +20,5 @@ public interface LoginService {
 
     void withdraw_user(String mbrId);
 
-    void logout(String accessToken);
+    int logout(String accessToken) throws IOException;
 }

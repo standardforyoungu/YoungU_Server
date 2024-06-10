@@ -24,13 +24,11 @@ public class UserController {
 
     private static HttpHeaders httpHeaders = new HttpHeaders();
 
-    //@GetMapping("/youngustandard/user")
-    @GetMapping("/youngustandard/user/{mbr_id}")
+    @RequestMapping(value = "/youngustandard/user/{mbr_id}",method = {RequestMethod.GET})
     // 유저 정보 조회
     //@AuthorizeCheck
     public ResponseEntity<MemberDTO> search_UserInfo(@PathVariable String mbr_id){
-        System.out.println("유저정보조회");
-        System.out.println("mbr_id = " + mbr_id);
+
         MemberDTO memberDTO = userService.get_UserInfo(mbr_id);
         if(memberDTO == null){
             throw new NotFoundException("해당 유저의 정보를 찾을 수 없습니다.");
@@ -41,9 +39,9 @@ public class UserController {
     }
 
     //@GetMapping("/youngustandard/user/child")
-    @GetMapping("/youngustandard/user/{mbr_id}/child")
+    @RequestMapping(value = "/youngustandard/user/{mbr_id}/child",method = {RequestMethod.GET})
     //특정 유저의 아이 전체 조회
-//    @AuthorizeCheck
+    //@AuthorizeCheck
     public ResponseEntity<ChildResponse> search_AllChildInfo(@PathVariable String mbr_id){
 
         MemberDTO memberDTO = userService.get_UserInfo(mbr_id);
@@ -61,8 +59,8 @@ public class UserController {
         return new ResponseEntity<>(childResponse,httpHeaders, HttpStatus.OK);
     }
 
-    @PostMapping("/youngustandard/user/{mbr_id}/child")
-   // @AuthorizeCheck
+    @RequestMapping(value = "/youngustandard/user/{mbr_id}/child",method = {RequestMethod.POST})
+    //@AuthorizeCheck
     public ResponseEntity<PropensityResponse> insert_ChildInfo(@Valid @RequestBody ChildDTO childDTO, @PathVariable String mbr_id){
        int next_child_id;
         if(!(childDTO.getChl_sex().equals("F") || childDTO.getChl_sex().equals("M"))){
@@ -80,8 +78,9 @@ public class UserController {
         else{
             next_child_id = userService.find_Max_Child_Id(childDTO).getChl_id()+1;
         }
+        int cnt_child = userService.count_children(childDTO);
 
-        if(next_child_id>3){
+        if(cnt_child>=3){
             throw new ViolateRuleException("아이 정보는 최대 3개까지 저장가능합니다. 아이 정보를 삭제한 후 다시 시도해주시기 바랍니다.");
         }
         childDTO.setChl_id(next_child_id);
@@ -99,9 +98,10 @@ public class UserController {
         return new ResponseEntity<>(defaultResponse,httpHeaders, HttpStatus.OK);
     }
 
-    @DeleteMapping("/youngustandard/user/{mbr_id}/child")
+    @RequestMapping(value="/youngustandard/user/{mbr_id}/child", method = {RequestMethod.DELETE})
     //@AuthorizeCheck
-    public ResponseEntity<DefaultResponse> delete_ChildInfo(@RequestBody ChildDTO childDTO, @PathVariable String mbr_id){
+    public ResponseEntity<DefaultResponse> delete_ChildInfo(@PathVariable String mbr_id, @RequestBody ChildDTO childDTO){
+
         MemberDTO memberDTO = userService.get_UserInfo(mbr_id);
         if(memberDTO == null){
             throw new NotFoundException("해당 유저의 정보를 찾을 수 없습니다.");

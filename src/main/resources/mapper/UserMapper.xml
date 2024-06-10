@@ -21,6 +21,12 @@
         WHERE MBR_ID = #{mbr_id}
     </select>
 
+    <select id = "count_children" parameterType="com.youngustandard.youngu_server.User.ChildDTO" resultType="int">
+        SELECT COUNT(CHL_ID)
+        FROM YS_CHILD
+        WHERE MBR_ID = #{mbr_id}
+    </select>
+
     <insert id="insert_ChildInfo" parameterType="com.youngustandard.youngu_server.User.ChildDTO">
         INSERT INTO YS_CHILD(MBR_ID,CHL_ID,CHL_NCK_NM,CHL_SEX,CHL_AGE,FST_INPR,LAST_UPDR)
         VALUES(#{mbr_id},#{chl_id},#{chl_nck_nm},#{chl_sex},#{chl_age},#{mbr_id},#{mbr_id})

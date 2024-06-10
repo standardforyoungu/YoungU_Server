@@ -50,4 +50,9 @@ public class UserServiceImpl implements UserService {
     public ChildDTO find_specific_child(ResultDTO resultDTO) {
         return userRepository.find_specific_child(resultDTO);
     }
+
+    @Override
+    public int count_children(ChildDTO childDTO) {
+        return userRepository.count_children(childDTO);
+    }
 }

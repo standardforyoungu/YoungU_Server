@@ -51,4 +51,9 @@ public class UserRepositoryImpl implements UserRepository {
     public int update_Child_Result(ResultDTO resultDTO) {
         return userMapper.update_Child_Result(resultDTO);
     }
+
+    @Override
+    public int count_children(ChildDTO childDTO) {
+        return userMapper.count_children(childDTO);
+    }
 }

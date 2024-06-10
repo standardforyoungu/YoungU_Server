@@ -1,12 +1,15 @@
 package com.youngustandard.youngu_server.Login;
 
 import com.youngustandard.youngu_server.Config.AuthorizeCheck;
+import com.youngustandard.youngu_server.Exception.NotFoundException;
 import com.youngustandard.youngu_server.Response.DefaultResponse;
 import com.youngustandard.youngu_server.Response.LoginResponse;
 import jakarta.servlet.http.Cookie;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.nio.charset.Charset;
 import java.time.Duration;
@@ -26,7 +29,7 @@ public class LoginController {
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(URI.create(URL));
         headers.setContentType(MediaType.APPLICATION_JSON);
-        System.out.println("URL = " + URL);
+
         return new ResponseEntity<>(headers, HttpStatus.MOVED_PERMANENTLY);
     }
 
@@ -37,13 +40,13 @@ public class LoginController {
     public ResponseEntity<Object> loginCallback( @RequestBody LoginDTO aloginDTO) throws Exception {
         LoginResponse loginResponse = new LoginResponse();
         //accessToken 이랑 refreshToken 발급
-        System.out.println(" =1 " );
+
         LoginDTO loginDTO = loginService.getToken(aloginDTO.getCode());
         //LoginDTO loginDTO = loginService.getToken(code);
         //accessToken으로 사용자 정보 받으러 가기
-        System.out.println(" =2" );
+
         loginDTO = loginService.getUserInfo(loginDTO);
-        System.out.println(" =3 " );
+
         //사용자 id로 신규유저인지 기존유저인지 확인하기
         boolean exists = loginService.find_User(loginDTO.getMbr_id());
 
@@ -70,7 +73,7 @@ public class LoginController {
 
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
-        System.out.println(" =4 " );
+
         //access_token 쿠키에 담아보내기
         ResponseCookie cookie = ResponseCookie.from("refresh_token",jwt_refresh_toekn)
                 .domain("localhost")
@@ -96,10 +99,22 @@ public class LoginController {
         return new ResponseEntity<>(defaultResponse,headers, HttpStatus.OK);
     }
     @RequestMapping(value="/youngustandard/logout", method = {RequestMethod.GET})
-    //@AuthorizeCheck
-    public void logout(){
+    @AuthorizeCheck
+    public ResponseEntity<DefaultResponse> logout(String access_token) throws IOException {
         //헤더에서 access_token 뽑아내고
-        String access_token = null;
-        loginService.logout(access_token);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
+        int responseCode = loginService.logout(access_token);
+
+        if(responseCode!=200){
+            throw new NotFoundException("로그아웃에 실패했어요. 잠시 후 다시 시도해주세요.");
+        }
+
+        DefaultResponse defaultResponse = new DefaultResponse();
+        defaultResponse.setResult("Success");
+        defaultResponse.setMessage("로그아웃되었습니다.");
+        return new ResponseEntity<>(defaultResponse,headers, HttpStatus.OK);
     }
+
 }

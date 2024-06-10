@@ -20,4 +20,6 @@ public interface UserRepository {
     ChildDTO find_specific_child(ResultDTO resultDTO);
 
     int update_Child_Result(ResultDTO resultDTO);
+
+    int count_children(ChildDTO childDTO);
 }

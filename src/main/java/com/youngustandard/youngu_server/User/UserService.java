@@ -21,4 +21,6 @@ public interface UserService {
     int insert_ChiildInfo(ChildDTO childDTO);
 
     ChildDTO find_specific_child(ResultDTO resultDTO);
+
+    int count_children(ChildDTO childDTO);
 }

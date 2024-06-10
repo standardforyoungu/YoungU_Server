@@ -9,6 +9,7 @@ import org.aspectj.lang.annotation.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -54,24 +55,34 @@ public class AuthorizeAop {
 
     @Around("@annotation(com.youngustandard.youngu_server.Config.AuthorizeCheck)")
     public Object AuthorizeCheck(ProceedingJoinPoint jp) throws Throwable {
-        System.out.println("request = " + request);
-        String access_value = request.getHeader("access_token");
+
+        String authorization = request.getHeader("Authorization");
+        String access_value = authorization.split(" ")[1];
+        String refresh_value = Arrays.toString(request.getCookies());
+
         System.out.println("access_value = " + access_value);
+        System.out.println("refresh_value = " + refresh_value);
+        
         HashMap<String,Object> at_map = loginService.decode_JWT(access_value);
-        String id = at_map.get("id").toString();
+
+//        String id = at_map.get("id").toString();
+        String token = at_map.get("token").toString();
+        System.out.println("access_token = " + token);
+
+        int length_token = token.length();
+        String access_token = token.substring(1,length_token-1);
 
         long nowTime = System.currentTimeMillis() / 1000;
 
         if(nowTime < Long.parseLong(String.valueOf(at_map.get("exp"))) ){
             //아직 만료시간이 남았음.
             System.out.println(" true ");
-
         }
         else{
             //갱신해야함.
             System.out.println(" false ");
         }
-        Object resultObj = jp.proceed(new Object[]{id});
+        Object resultObj = jp.proceed(new Object[]{access_token});
         return resultObj;
         // 1. Access_token, Refresh_toekn 만료여부 확인
         //  1-1. 둘 다 만료라면 -> 405 에러 발생(unauthorized)
